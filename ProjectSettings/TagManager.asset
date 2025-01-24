@@ -8,9 +8,6 @@ TagManager:
   - Collectable
   - Enemy
   - Interactable
-  - VendingSpawnPoint
-  - CoinSpawnPoint
-  - GumSpawnPoint
   layers:
   - Default
   - TransparentFX
