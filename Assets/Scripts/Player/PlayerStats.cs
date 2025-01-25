@@ -79,7 +79,7 @@ public class PlayerStats : MonoBehaviour
     /// Gibt an ob der Spieler kaugummi kaut oder nicht
     /// </summary>
     /// <param name="chewing"></param>
-    public void setChewing(bool chewing)
+    public void SetChewing(bool chewing)
     {
         IsChewing = chewing;
         OnChewingChanged?.Invoke(chewing);
