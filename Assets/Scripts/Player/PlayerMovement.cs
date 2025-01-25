@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.transform.tag == "Interactable")
         {
-            collision.transform.GetComponent<IInteractable>().Interaction();
+            collision.transform.GetComponent<IInteractable>().Interact();
         }
     }
 
