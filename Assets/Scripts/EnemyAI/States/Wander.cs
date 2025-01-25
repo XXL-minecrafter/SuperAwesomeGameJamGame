@@ -1,50 +1,75 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-public class Wander : State
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+public class Wander : MonoBehaviour
 {
-    private float movementRange;
+    [SerializeField] private float movementRange = 1f;
+    [SerializeField] private LayerMask blockingLayer;
 
-    public Wander(EnemyController enemy, NavMesh2D navMesh, float movementRange) : base(enemy, navMesh)
+    private Vector2 destination;
+
+    private void Start()
     {
-        this.movementRange = movementRange;
+        StartCoroutine(MoveTo());
     }
 
-    public override void OnFinalize()
+    private IEnumerator MoveTo()
     {
-        throw new System.NotImplementedException();
-    }
+        const float distanceMargin = .1f;
 
-    public override void OnStart()
-    {
-        throw new System.NotImplementedException();
-    }
+        while (true)
+        {
+            destination = CalculateNewWaypoint();
 
-    public override void OnUpdate()
-    {
-        enemy.transform.position = CalculateNewWaypoint();
+            // TODO: Needs to rotate too
+
+            while (Vector2.Distance(transform.position, destination) >= distanceMargin)
+            {
+                transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime;
+                
+
+                yield return null;
+            }
+        }
     }
 
     public Vector2 CalculateNewWaypoint()
     {
-        for (int i = 0; i < 1; i++)
-        {
-            // Get random point around entity in range
-            var randomPointAroundEntity = Random.insideUnitCircle * movementRange + (Vector2)enemy.transform.position;
+        var randomPosition = Random.insideUnitCircle * movementRange;
 
-            // Check if random point is on NavMesh
-            bool isPointOnMesh = navMesh.Mesh.OverlapPoint(randomPointAroundEntity);
+        var hit = Physics2D.Raycast(transform.position, randomPosition, Vector2.Distance(transform.position, randomPosition), blockingLayer);
 
-            Debug.Log($"{randomPointAroundEntity} : {isPointOnMesh}");
+        if (hit.collider) return CalculateNewWaypoint();
+        else return randomPosition;
+    }
 
-            if (isPointOnMesh)
-            {
-                Debug.Log($"{GetType()}: Waypoint of {enemy.name} set to {randomPointAroundEntity}.");
-                return randomPointAroundEntity;
-            }
-        }
+    public void OverrideDestination(Vector2 destination) => this.destination = destination;
+}
 
-        Debug.LogWarning($"{GetType()}: Waypoint of {enemy.name} could not be calculated.");
-        return enemy.transform.position;
+#if UNITY_EDITOR
+[CustomEditor(typeof(Wander))]
+public class WanderEditor : Editor
+{
+    private Wander wander;
+    private Vector2 overrideDest;
+
+    private void OnEnable()
+    {
+        wander = (Wander)target;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        EditorGUILayout.Space(100);
+
+        overrideDest = EditorGUILayout.Vector2Field("New Destination", overrideDest);
+        if (GUILayout.Button("Override Destination")) wander.OverrideDestination(overrideDest);
     }
 }
+#endif

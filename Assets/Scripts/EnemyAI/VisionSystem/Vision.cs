@@ -5,6 +5,7 @@ public class Vision : MonoBehaviour
 {
     [Header("References")]
     [SerializeField, Tooltip("If left empty, Main Camera is used.")] private Transform anchorTransform;
+    [SerializeField] private LayerMask detectionLayer;
 
     [Header("Detector Settings")]
     [SerializeField] private int detectorCount = 6;
@@ -14,6 +15,13 @@ public class Vision : MonoBehaviour
     public bool TargetInSight { get; private set; }
 
     private List<Detector> detectors;
+
+    private Wander legs;
+
+    private void Awake()
+    {
+        legs = GetComponentInParent<Wander>();
+    }
 
     private void Start()
     {
@@ -28,8 +36,9 @@ public class Vision : MonoBehaviour
     /// <summary>
     /// What should happen if something was detected
     /// </summary>
-    public virtual void OnDetect()
+    public virtual void OnDetect(GameObject ctx)
     {
+        legs.OverrideDestination(ctx.transform.position);
     }
 
     /// <summary>
@@ -68,15 +77,15 @@ public class Vision : MonoBehaviour
     /// <param name="other">Information about the detected object</param>
     /// <param name="onDetectAction">The action that should be invoked if something is detected</param>
     /// <returns>True, if something was detected. Otherwise false</returns>
-    public bool Detect(List<Detector> detectors, out RaycastHit? other, System.Action onDetectAction)
+    public bool Detect(List<Detector> detectors, out RaycastHit2D? other, System.Action<GameObject> onDetectAction)
     {
         foreach (var detector in detectors)
         {
-            bool targetInSight = detector.TryDetectPlayer(out var hit);
-
+            bool targetInSight = detector.TryDetectLayer(detectionLayer, out var hit);
+            
             if (!targetInSight) continue;
 
-            onDetectAction();
+            onDetectAction?.Invoke(hit.transform.gameObject);
 
             other = hit;
             return targetInSight;
