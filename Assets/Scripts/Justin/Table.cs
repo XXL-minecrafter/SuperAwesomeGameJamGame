@@ -7,17 +7,17 @@ public class Table : MonoBehaviour, IInteractable
 
     private PlayerStats playerStats;
 
-    public GameObject InteractionBox { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    [field: SerializeField] public GameObject InteractionBox { get ; set ; }
+
+    public void DisableInteractionBox()
+    {
+        throw new System.NotImplementedException();
+    }
 
     public void Interact()
     {
         PlayerStats.Instance.PlacedGum();
         Debug.Log("Table Interaction Holded");
-    }
-
-    public void LoadInteractionBox()
-    {
-        throw new System.NotImplementedException();
     }
 
     public void ShowInteractionBox()
