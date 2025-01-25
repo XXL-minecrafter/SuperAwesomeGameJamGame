@@ -13,6 +13,11 @@ public class DistributionManager : MonoBehaviour
     private GameObject vendingMachinePrefab;
     private GameObject gumPlacePrefab;
 
+    [SerializeField] private Transform coinContainer;
+    [SerializeField] private Transform vendingMachineContainer;
+    [SerializeField] private Transform gumContainer;
+
+
     [SerializeField] private int minimumGumSpawnPoints = 10;
     [SerializeField] private int minimumCoins = 3;
     [SerializeField] private int minimumVendingMachines = 1;
@@ -102,13 +107,15 @@ public class DistributionManager : MonoBehaviour
 
             if (spawnPoint.HasObject) continue;
 
-            SpawnGumPlace(spawnPoint); return;
+            SpawnGumPlace(spawnPoint); foundValidSpawnPoint = true;
         }
     }
 
     private void SpawnGumPlace(SpawnPoint at)
     {
-        Instantiate(gumPlacePrefab, at.transform.position, Quaternion.identity);
+        Instantiate(gumPlacePrefab, at.transform.position, Quaternion.identity, gumContainer);
+
+        at.HasObject = true;
 
         existingGumSpawnPoints++;
     }
@@ -128,17 +135,19 @@ public class DistributionManager : MonoBehaviour
 
             if (spawnPoint.HasObject) continue;
 
-            SpawnCoin(spawnPoint); return;
+            SpawnCoin(spawnPoint);foundValidSpawnPoint = true;
         }
     }
 
     private void SpawnCoin(SpawnPoint at)
     {
-        GameObject coinObject = Instantiate(coinPrefab, at.transform.position, Quaternion.identity);
+        GameObject coinObject = Instantiate(coinPrefab, at.transform.position, Quaternion.identity, coinContainer);
 
         if(coinObject.TryGetComponent(out CoinBehaviour coinBehaviour))
         {
             coinBehaviour.SpawnPoint = at;
+
+            at.HasObject = true;
 
             existingCoins++;
         }
@@ -149,7 +158,7 @@ public class DistributionManager : MonoBehaviour
     private void DistributeVendingMachine() 
     {
         bool foundValidSpawnPoint = false;
-        int randomSpawnPointIndex = 0;
+        int randomSpawnPointIndex;
 
         while (!foundValidSpawnPoint)
         {
@@ -159,17 +168,19 @@ public class DistributionManager : MonoBehaviour
 
             if (spawnPoint.HasObject) continue;
 
-            SpawnVendingMachine(spawnPoint); return;
+            SpawnVendingMachine(spawnPoint); foundValidSpawnPoint = true;
         }
     }
 
     private void SpawnVendingMachine(SpawnPoint at)
     {
-        GameObject vendingMachineObject = Instantiate(vendingMachinePrefab, at.transform.position, Quaternion.identity);
+        GameObject vendingMachineObject = Instantiate(vendingMachinePrefab, at.transform.position, Quaternion.identity, vendingMachineContainer);
 
         if(vendingMachineObject.TryGetComponent(out VendingMachineBehaviour vendingMachineBehaviour))
         {
             vendingMachineBehaviour.SpawnPoint = at;
+
+            at.HasObject = true;
 
             existingVendingMachines++;
         }
