@@ -6,53 +6,52 @@ using UnityEngine.Rendering.Universal;
 public class RoomLightSwitch : MonoBehaviour
 {
     private Light2D roomLight;
+
+    #region LightValues
     private float fadeTime = 1.5f;
     private float newIntensity = 0;
     private float initialIntensity;
     private float falloffDistance;
-
     private int colliderCount = 0;
-
     private float turnOffTimer = 0f;
     private float turnOffDelay = 2f;
     private bool isDelay = false;
     private bool isOn = false;
-    //private bool isFlicker = false;
+    #endregion
 
+    #region Flicker
     private float maxInterval = 10f;
     private float maxFlicker = 0.2f;
     private float flickerTimer;
     private float flickerDelay;
     private bool isFlicker;
-
+    private Texture2D lightFlicker;
+    private float lightFlickerChance = 0.01f;
     private float burstFlickerInterval = 0.6f;
     private int flickerCount;
     private int currentMaxFlickers;
     private int minFlickers = 2;
     private int maxFlickers = 4;
-
     public bool CanFlicker = true;
-
+    #endregion
 
     //Max values so light doesn't escalate
     private float maxIntensity = 0.5f;
     private float maxFalloffDistance = 1.0f;
 
 
-
-
     private void Awake()
     {
+        #region Initial Values
         roomLight = GetComponent<Light2D>();
         initialIntensity = roomLight.intensity;
         falloffDistance = roomLight.falloffIntensity;
-
         roomLight.enabled = true;
         roomLight.intensity = 0f;
+        #endregion
 
         CheckMaxValues();
     }
-
 
     private void Update()
     {
@@ -84,6 +83,7 @@ public class RoomLightSwitch : MonoBehaviour
             isOn = true;
             colliderCount++;
             newIntensity = initialIntensity;
+            flickerDelay = 1f;
         }
     }
 
@@ -110,6 +110,10 @@ public class RoomLightSwitch : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Delays the Light turn off
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DelayTurnOff()
     {
         yield return new WaitForSeconds(turnOffDelay);
@@ -120,6 +124,9 @@ public class RoomLightSwitch : MonoBehaviour
         isOn=false;
     }
 
+    /// <summary>
+    /// Flickers the Light in bursts
+    /// </summary>
     private void FlickerLight()
     {
         isFlicker = !isFlicker;
@@ -146,6 +153,11 @@ public class RoomLightSwitch : MonoBehaviour
         }
 
         flickerTimer = 0;
+    }
+
+    private void FlickerBurstLight()
+    {
+        
     }
 
 
