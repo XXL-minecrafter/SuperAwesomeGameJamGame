@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ReturnToMenuScript : MonoBehaviour
 {
-   private Button returnToMenuButton;
+    private Button returnToMenuButton;
 
     private void Awake()
     {
@@ -23,5 +21,5 @@ public class ReturnToMenuScript : MonoBehaviour
         returnToMenuButton.onClick.RemoveListener(ReturnToMenuScreen);
     }
 
-    public void ReturnToMenuScreen() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
+    public void ReturnToMenuScreen() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
 }

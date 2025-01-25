@@ -17,9 +17,9 @@ public class TimerDisplayManager : MonoBehaviour
 
     private void UpdateTimerDisplay(int timeLeft)
     {
-        int minutes = (int) (timeLeft / 60f);
+        int minutes = (int)(timeLeft / 60f);
         int seconds = timeLeft % 60;
-        
+
         timerText.text = $"{minutes}:{seconds}";
     }
 }

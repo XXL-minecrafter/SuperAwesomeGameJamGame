@@ -16,7 +16,7 @@ public class SpawnPoint : MonoBehaviour
 
     private static Action<SpawnPoint> onObjectCleared;
 
-    public static event Action<SpawnPoint> OnObjectCleared { add =>  onObjectCleared += value; remove => onObjectCleared -= value; }
+    public static event Action<SpawnPoint> OnObjectCleared { add => onObjectCleared += value; remove => onObjectCleared -= value; }
 
     public void RemoveSpawnPointObject() => onObjectCleared?.Invoke(this);
 }

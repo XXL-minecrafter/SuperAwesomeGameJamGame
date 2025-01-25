@@ -84,7 +84,7 @@ public class Eyes : MonoBehaviour
         foreach (var detector in detectors)
         {
             bool targetInSight = detector.TryDetectLayer(detectionLayer, out var hit);
-            
+
             if (!targetInSight) continue;
 
             onDetectAction?.Invoke(hit.transform.gameObject);

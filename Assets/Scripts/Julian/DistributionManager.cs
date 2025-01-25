@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class DistributionManager : MonoBehaviour
 {
@@ -28,7 +28,7 @@ public class DistributionManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null) Instance = this;
+        if (Instance == null) Instance = this;
         else { Destroy(Instance); return; }
 
         FindObjectsOfType<SpawnPoint>();
@@ -54,17 +54,17 @@ public class DistributionManager : MonoBehaviour
 
     private void Update()
     {
-        if(existingGumSpawnPoints < minimumGumSpawnPoints)
+        if (existingGumSpawnPoints < minimumGumSpawnPoints)
         {
             DistributeGumPlace();
         }
 
-        if(existingCoins < minimumCoins)
+        if (existingCoins < minimumCoins)
         {
             DistributeCoin();
         }
 
-        if(existingVendingMachines < minimumVendingMachines)
+        if (existingVendingMachines < minimumVendingMachines)
         {
             DistributeVendingMachine();
         }
@@ -74,9 +74,9 @@ public class DistributionManager : MonoBehaviour
     {
         SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
 
-        for (int i = 0; i < spawnPoints.Length; i++) 
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
-            switch(spawnPoints[i].SpawnPointObject)
+            switch (spawnPoints[i].SpawnPointObject)
             {
                 case SpawnPointObject.GumPlacePosition:
                     gumPlaceSpawnPoints.Add(spawnPoints[i]);
@@ -97,7 +97,7 @@ public class DistributionManager : MonoBehaviour
         bool foundValidSpawnPoint = false;
         int randomSpawnPointIndex;
 
-        while (!foundValidSpawnPoint) 
+        while (!foundValidSpawnPoint)
         {
             randomSpawnPointIndex = Random.Range(0, gumPlaceSpawnPoints.Count);
 
@@ -133,7 +133,7 @@ public class DistributionManager : MonoBehaviour
 
             if (spawnPoint.HasObject) continue;
 
-            SpawnCoin(spawnPoint);foundValidSpawnPoint = true;
+            SpawnCoin(spawnPoint); foundValidSpawnPoint = true;
         }
     }
 
@@ -141,7 +141,7 @@ public class DistributionManager : MonoBehaviour
     {
         GameObject coinObject = Instantiate(coinPrefab, at.transform.position, Quaternion.identity, coinContainer);
 
-        if(coinObject.TryGetComponent(out CoinBehaviour coinBehaviour))
+        if (coinObject.TryGetComponent(out CoinBehaviour coinBehaviour))
         {
             coinBehaviour.SpawnPoint = at;
 
@@ -153,7 +153,7 @@ public class DistributionManager : MonoBehaviour
     #endregion
 
     #region Vending Machine Spawning
-    private void DistributeVendingMachine() 
+    private void DistributeVendingMachine()
     {
         bool foundValidSpawnPoint = false;
         int randomSpawnPointIndex;
@@ -174,7 +174,7 @@ public class DistributionManager : MonoBehaviour
     {
         GameObject vendingMachineObject = Instantiate(vendingMachinePrefab, at.transform.position, Quaternion.identity, vendingMachineContainer);
 
-        if(vendingMachineObject.TryGetComponent(out VendingMachineBehaviour vendingMachineBehaviour))
+        if (vendingMachineObject.TryGetComponent(out VendingMachineBehaviour vendingMachineBehaviour))
         {
             vendingMachineBehaviour.SpawnPoint = at;
 
