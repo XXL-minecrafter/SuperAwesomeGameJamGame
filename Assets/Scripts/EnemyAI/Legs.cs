@@ -1,16 +1,6 @@
 using System.Collections;
 using UnityEngine;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-
->>>>>>> Stashed changes
-
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 public class Legs : MonoBehaviour
 {

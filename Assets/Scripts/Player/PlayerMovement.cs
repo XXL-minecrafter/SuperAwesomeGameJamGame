@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +5,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-=======
-using UnityEngine;
->>>>>>> Stashed changes
-=======
-using UnityEngine;
->>>>>>> Stashed changes
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
