@@ -10,6 +10,7 @@ using UnityEditor;
 public class Legs : MonoBehaviour
 {
     [SerializeField] private float movementRange = 1f;
+    [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private LayerMask blockingLayer;
 
@@ -44,7 +45,7 @@ public class Legs : MonoBehaviour
 
             while (Vector2.Distance(transform.position, destination) >= enemyRadius)
             {
-                transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime;
+                transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime * movementSpeed;
 
                 var currentRotation = transform.right;
                 var targetRotation = (Vector3)destination - transform.position;
@@ -59,7 +60,8 @@ public class Legs : MonoBehaviour
     {
         var randomPosition = Random.insideUnitCircle * movementRange;
 
-        var hit = Physics2D.Raycast(transform.position, randomPosition, Vector2.Distance(transform.position, randomPosition), blockingLayer);
+        //var hit = Physics2D.Raycast(transform.position, randomPosition, Vector2.Distance(transform.position, randomPosition), blockingLayer);
+        var hit = Physics2D.Linecast(transform.position, randomPosition, blockingLayer);
 
         if (hit.collider) return CalculateNewWaypoint();
         else return randomPosition;
