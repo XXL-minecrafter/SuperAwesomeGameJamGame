@@ -9,7 +9,7 @@ public class CoinBehaviour : MonoBehaviour
 
     private PlayerStats playerStats;
 
-    private SpawnPoint spawnPoint;
+    public SpawnPoint spawnPoint;
 
     private void Awake()
     {
