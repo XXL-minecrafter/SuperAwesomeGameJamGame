@@ -13,6 +13,8 @@ public class Table : MonoBehaviour, IInteractable
         InteractionBox?.SetActive(false);
     }
 
-    public void Interact() => PlayerStats.Instance.PlacedGum();
-
+    public void Interact()
+    {
+        PlayerStats.Instance.PlacedGum();
+    }
 }

@@ -36,7 +36,6 @@ public class InteractionRadius : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO: Gum can also be placed
 
         if (playerInput.Player.interaction.WasPressedThisFrame()) holdingInput = true;
 
@@ -50,7 +49,7 @@ public class InteractionRadius : MonoBehaviour
         {
             interactionHoldTimer += Time.deltaTime;
 
-            if (interactionHoldTimer >= interactionTime && isTable)
+            if (interactionHoldTimer >= interactionTime && isTable && PlayerStats.Instance.IsChewing)
             {
                 interactableObject.Interact(); holdingInput = false;
             }
