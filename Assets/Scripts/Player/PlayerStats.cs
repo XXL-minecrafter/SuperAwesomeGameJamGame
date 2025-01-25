@@ -1,10 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats Instance { get; private set; }
+
 
     // Action für das Erhöhen der Coins
     public event Action<int> OnIncreaseCoins;
@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour
     public event Action<bool> OnChewingChanged;
 
     // Action für das Beenden des Spiels wenn alle Gums platziert worden sind
-    public static event Action OnAllGumsPlaced;
+    public event Action OnAllGumsPlaced;
 
     [field: SerializeField] public int CurrentCoins {  get; private set; } // gesammelte Anzahl an Coins
     [field: SerializeField] public int MaxCoins { get; private set; } // Maximale Anzahl an Coins
@@ -27,6 +27,16 @@ public class PlayerStats : MonoBehaviour
     [field: SerializeField] public int PlacedBubbleGum { get; private set; } // Wie viele Gums wurden bereits platziert
     [field: SerializeField] public int PlacedBubbleGumNeeded { get; private set; } = 10; // Wie viele Gums platziert werden müssen
     [field: SerializeField] public bool IsChewing { get; private set; } // Kaut der Spieler gerade einen Kaugummi
+
+    public void Awake()
+    {
+        if(Instance == null) Instance = this;
+        else
+        {
+            Destroy(gameObject); return;
+        }
+    }
+
 
     /// <summary>
     /// Erhöht die Anzahl der Coins um die übergebene Menge
