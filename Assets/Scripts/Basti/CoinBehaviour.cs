@@ -21,6 +21,5 @@ public class CoinBehaviour : MonoBehaviour , ICollectable
 
         SpawnPoint.RemoveSpawnPointObject();
         Destroy(gameObject);
-        Destroy(this);
     }
 }
