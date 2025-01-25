@@ -7,15 +7,16 @@ using UnityEngine.InputSystem;
 public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 {
     private int gumAmount = 2;
+    private bool isUsed;
 
     private PlayerInput playerInput;
     private InputAction interact;
 
-    private bool isUsed;
-
     private PlayerStats playerStats;
+    public SpawnPoint SpawnPoint;
 
-    public SpawnPoint spawnPoint;
+
+
 
 
     private void OnEnable()
@@ -30,8 +31,10 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     {
         if (isUsed && interact.WasPressedThisFrame())
         {
-            
+            VendingMachinePulled();
         }
+
+        CheckGumAmount();
     }
 
 
@@ -55,7 +58,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     {
         if(gumAmount == 0)
         {
-            spawnPoint.HasObject = false;
+            SpawnPoint.HasObject = false;
             Destroy(gameObject);
             Destroy(this);
         }

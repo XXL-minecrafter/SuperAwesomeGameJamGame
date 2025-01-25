@@ -33,6 +33,20 @@ public class DistributionManager : MonoBehaviour
         vendingMachinePrefab = Resources.Load<GameObject>("VendingMachine");
     }
 
+    private void OnEnable()
+    {
+        SpawnPoint.OnObjectCleared += RemoveSpawnPointObject;
+    }
+
+    private void OnDisable()
+    {
+        Resources.UnloadAsset(coinPrefab);
+        Resources.UnloadAsset(vendingMachinePrefab);
+        Resources.UnloadAsset(gumPlacePrefab);
+
+        SpawnPoint.OnObjectCleared -= RemoveSpawnPointObject;
+    }
+
     private void Start() => CollectSpawnPoints();
 
     private void Update()
@@ -124,7 +138,7 @@ public class DistributionManager : MonoBehaviour
 
         if(coinObject.TryGetComponent(out CoinBehaviour coinBehaviour))
         {
-            //coinBehaviour.
+            coinBehaviour.spawnPoint = at;
 
             existingCoins++;
         }
@@ -155,7 +169,7 @@ public class DistributionManager : MonoBehaviour
 
         if(vendingMachineObject.TryGetComponent(out VendingMachineBehaviour vendingMachineBehaviour))
         {
-            //vendingMachineBehaviour.
+            vendingMachineBehaviour.spawnPoint = at;
 
             existingVendingMachines++;
         }
