@@ -17,11 +17,15 @@ public class PlayerStats : MonoBehaviour
 
     // Action für das Setzen des Kaugummi-Zustands
     public event Action<bool> OnChewingChanged;
-    
+
+    // Action für das Beenden des Spiels wenn alle Gums platziert worden sind
+    public static event Action OnAllGumsPlaced;
+
     [field: SerializeField] public int CurrentCoins {  get; private set; } // gesammelte Anzahl an Coins
     [field: SerializeField] public int MaxCoins { get; private set; } // Maximale Anzahl an Coins
     [field: SerializeField] public int CoinsFallBack { get; private set; } = 0; // Auf welchen Werst sollen die Coins zurückgesetzt werden 
     [field: SerializeField] public int PlacedBubbleGum { get; private set; } // Wie viele Gums wurden bereits platziert
+    [field: SerializeField] public int PlacedBubbleGumNeeded { get; private set; } = 10; // Wie viele Gums platziert werden müssen
     [field: SerializeField] public bool IsChewing { get; private set; } // Kaut der Spieler gerade einen Kaugummi
 
     /// <summary>
@@ -71,4 +75,15 @@ public class PlayerStats : MonoBehaviour
         OnChewingChanged?.Invoke(chewing);
     } // End public void setChewing(bool chewing)
 
+    /// <summary>
+    /// Erhöht den PlacedGum Count um 1 und checkt ob alle Gums platziert worden sind
+    /// </summary>
+    public void PlacedGum()
+    {
+        PlacedBubbleGum++;
+        if (PlacedBubbleGum == PlacedBubbleGumNeeded)
+        {
+            OnAllGumsPlaced?.Invoke();
+        }
+    }
 } // End public class PlayerStats : MonoBehaviour
