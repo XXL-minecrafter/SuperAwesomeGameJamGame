@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class Wander : MonoBehaviour
+public class Legs : MonoBehaviour
 {
     [SerializeField] private float movementRange = 1f;
     [SerializeField] private LayerMask blockingLayer;
@@ -51,22 +51,22 @@ public class Wander : MonoBehaviour
 }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(Wander))]
-public class WanderEditor : Editor
+[CustomEditor(typeof(Legs))]
+public class LegsEditor : Editor
 {
-    private Wander wander;
+    private Legs wander;
     private Vector2 overrideDest;
 
     private void OnEnable()
     {
-        wander = (Wander)target;
+        wander = (Legs)target;
     }
 
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        EditorGUILayout.Space(100);
+        EditorGUILayout.Separator();
 
         overrideDest = EditorGUILayout.Vector2Field("New Destination", overrideDest);
         if (GUILayout.Button("Override Destination")) wander.OverrideDestination(overrideDest);

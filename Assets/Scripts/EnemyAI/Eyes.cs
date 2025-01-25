@@ -1,31 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vision : MonoBehaviour
+public class Eyes : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField, Tooltip("If left empty, Main Camera is used.")] private Transform anchorTransform;
-    [SerializeField] private LayerMask detectionLayer;
-
-    [Header("Detector Settings")]
-    [SerializeField] private int detectorCount = 6;
+    [SerializeField] private int precision = 6;
     [SerializeField] private float viewDistance = 10f;
     [SerializeField] private float fov = 60f;
+    [Space]
+    [SerializeField] private LayerMask detectionLayer;
 
     public bool TargetInSight { get; private set; }
 
     private List<Detector> detectors;
 
-    private Wander legs;
+    private Legs legs;
 
     private void Awake()
     {
-        legs = GetComponentInParent<Wander>();
+        legs = GetComponentInParent<Legs>();
     }
 
     private void Start()
     {
-        detectors = InitDetector(anchorTransform ? anchorTransform : Camera.main.transform, detectorCount, viewDistance, fov);
+        detectors = InitDetector(transform, precision, viewDistance, fov);
     }
 
     private void Update()
