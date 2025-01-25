@@ -38,7 +38,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     }
 
 
-    public void Interaction()
+    public void Interact()
     {
         isUsed = true;
         //Open UI for VendingMachine 
@@ -58,7 +58,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     {
         if(gumAmount == 0)
         {
-            SpawnPoint.HasObject = false;
+            SpawnPoint.RemoveSpawnPointObject();
             Destroy(gameObject);
             Destroy(this);
         }

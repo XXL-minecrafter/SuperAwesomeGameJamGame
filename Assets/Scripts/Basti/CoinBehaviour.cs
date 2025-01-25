@@ -19,7 +19,7 @@ public class CoinBehaviour : MonoBehaviour , ICollectable
     {
         playerStats.IncreaseCoins(value);
 
-        SpawnPoint.HasObject = false;
+        SpawnPoint.RemoveSpawnPointObject();
         Destroy(gameObject);
         Destroy(this);
     }
