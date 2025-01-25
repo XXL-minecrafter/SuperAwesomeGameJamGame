@@ -8,7 +8,7 @@ public class Eyes : MonoBehaviour
     [SerializeField] private float fov = 60f;
     [Space]
     [SerializeField] private LayerMask detectionLayer;
-    [SerializeField] private Vector3 rotation;
+    [SerializeField] private Vector3 rotation = new(0, 90f, 90f);
 
     public bool TargetInSight { get; private set; }
 

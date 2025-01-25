@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,46 +10,58 @@ using UnityEditor;
 public class Legs : MonoBehaviour
 {
     [SerializeField] private float movementRange = 1f;
+    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private LayerMask blockingLayer;
 
+    private Collider2D enemyCollider;
+    private float enemyRadius;
     private Vector2 destination;
+
+    private void Awake()
+    {
+        enemyCollider = GetComponent<Collider2D>();
+        enemyRadius = enemyCollider.bounds.extents.x;
+    }
 
     private void Start()
     {
         StartCoroutine(MoveTo());
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(destination, radius: .1f);
+    }
+
     private IEnumerator MoveTo()
     {
-        const float distanceMargin = .1f;
+        const float maxRotationDelta = 1f;
 
         while (true)
         {
             destination = CalculateNewWaypoint();
 
-            while (Vector2.Distance(transform.position, destination) >= distanceMargin)
+            while (Vector2.Distance(transform.position, destination) >= enemyRadius)
             {
-                transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime;
+                transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime * movementSpeed;
 
-                // TODO: SMOOTHER!
-                float angle = Mathf.Atan2(destination.y - transform.position.y, destination.x - transform.position.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
+                var currentRotation = transform.right;
+                var targetRotation = (Vector3)destination - transform.position;
+                transform.right = Vector3.RotateTowards(currentRotation, targetRotation, rotationSpeed * Time.deltaTime, maxRotationDelta);
 
                 yield return null;
             }
         }
     }
 
-    //private IEnumerator RotateTowards()
-    //{
-    //    
-    //}
-
     public Vector2 CalculateNewWaypoint()
     {
         var randomPosition = Random.insideUnitCircle * movementRange;
 
-        var hit = Physics2D.Raycast(transform.position, randomPosition, Vector2.Distance(transform.position, randomPosition), blockingLayer);
+        //var hit = Physics2D.Raycast(transform.position, randomPosition, Vector2.Distance(transform.position, randomPosition), blockingLayer);
+        var hit = Physics2D.Linecast(transform.position, randomPosition, blockingLayer);
 
         if (hit.collider) return CalculateNewWaypoint();
         else return randomPosition;
