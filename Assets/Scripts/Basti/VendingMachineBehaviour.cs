@@ -14,6 +14,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     private PlayerStats playerStats;
     public SpawnPoint SpawnPoint;
 
+    public GameObject InteractionBox { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     private void OnEnable()
     {
@@ -51,5 +52,15 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
             Destroy(gameObject);
             Destroy(this);
         }
+    }
+
+    public void LoadInteractionBox()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ShowInteractionBox()
+    {
+        throw new System.NotImplementedException();
     }
 }
