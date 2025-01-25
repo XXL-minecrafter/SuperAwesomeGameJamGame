@@ -1,7 +1,10 @@
 using System.Collections;
 using UnityEngine;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
 

@@ -9,6 +9,9 @@ public class Table : MonoBehaviour, IInteractable
     private PlayerStats playerStats;
 
     [field: SerializeField] public GameObject InteractionBox { get; set; }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
     public void ShowInteractionBox()
