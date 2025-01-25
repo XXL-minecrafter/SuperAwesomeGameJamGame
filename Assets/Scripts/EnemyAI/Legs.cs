@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,11 +10,14 @@ public class Legs : MonoBehaviour
     [SerializeField] private float movementRange = 1f;
     [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float stunDuration = 5f;
     [SerializeField] private LayerMask blockingLayer;
 
     private Collider2D enemyCollider;
     private float enemyRadius;
     private Vector2 destination;
+
+    private Coroutine movementOperation;
 
     private void Awake()
     {
@@ -26,13 +27,17 @@ public class Legs : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(MoveTo());
+        movementOperation = StartCoroutine(MoveTo());
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(destination, radius: .1f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
     }
 
     private IEnumerator MoveTo()
@@ -68,6 +73,20 @@ public class Legs : MonoBehaviour
     }
 
     public void OverrideDestination(Vector2 destination) => this.destination = destination;
+
+    public void Stun()
+    {
+        StartCoroutine(StunTimerCO());
+    }
+
+    private IEnumerator StunTimerCO()
+    {
+        StopCoroutine(movementOperation);
+
+        yield return new WaitForSeconds(stunDuration);
+
+        movementOperation = StartCoroutine(MoveTo());
+    }
 }
 
 #if UNITY_EDITOR
@@ -90,6 +109,7 @@ public class LegsEditor : Editor
 
         overrideDest = EditorGUILayout.Vector2Field("New Destination", overrideDest);
         if (GUILayout.Button("Override Destination")) wander.OverrideDestination(overrideDest);
+        if (GUILayout.Button("Stun")) wander.Stun();
     }
 }
 #endif
