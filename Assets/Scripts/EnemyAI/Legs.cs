@@ -33,10 +33,6 @@ public class Legs : MonoBehaviour
         Gizmos.DrawSphere(destination, radius: .1f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-    }
-
     private IEnumerator MoveTo()
     {
         const float maxRotationDelta = 1f;
