@@ -13,6 +13,9 @@ public class Timer : MonoBehaviour
     private static Action<int> onTimerUpdated;
     public static event Action<int> OnTImerUpdated { add => onTimerUpdated += value; remove => onTimerUpdated -= value; }
 
+    private static Action onTimerRanOut;
+    public static event Action OnTimerRanOut { add => onTimerRanOut += value; remove => onTimerRanOut -= value; }
+
     /// <summary>
     /// Timer mit einer Zeit (Default 900 -> 15 Minuten) initialisieren
     /// </summary>
@@ -20,6 +23,9 @@ public class Timer : MonoBehaviour
     private void Awake()
     {
         timeLeft = StartTime; // Startzeit setzen
+
+        onTimerUpdated?.Invoke(timeLeft);
+
         isRunning = false; // Darf nicht läufen
     }
 
@@ -57,6 +63,7 @@ public class Timer : MonoBehaviour
         if (timeLeft <= 0)
         {
             Debug.Log("Zeit ist abgelaufen!");
+            onTimerRanOut?.Invoke();
         }
         else
         {
