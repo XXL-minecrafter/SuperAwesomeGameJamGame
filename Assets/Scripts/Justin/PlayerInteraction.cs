@@ -1,10 +1,16 @@
+<<<<<<< Updated upstream
 using System;
+=======
+>>>>>>> Stashed changes
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InteractionRadius : MonoBehaviour
 {
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     private PlayerInput playerInput;
     private InputAction inputActionInteraction;
     private InputAction bubbleGumBlast;
@@ -14,11 +20,12 @@ public class InteractionRadius : MonoBehaviour
 
 
     private float timeStampPressedInteraction;
-    private float interactionHoldCounter;
+    private float interactionHoldTimer;
+    private bool holdingInput = false;
     [SerializeField] private float interactionTime = 5f;
 
     private bool interactionPressed;
-    private bool inInteractionZone;
+    private bool interactionFound;
     private bool isTable;
 
     public event Action BubbleGumBlast;
@@ -51,15 +58,32 @@ public class InteractionRadius : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         if (bubbleGumBlast.WasPressedThisFrame() && PlayerStats.Instance.IsChewing)
         {
             
         }
 
         if (isTable)
+=======
+        //TODO: Gum can also be placed
+
+        if (playerInput.Player.interaction.WasPressedThisFrame()) holdingInput = true;
+ 
+        if (playerInput.Player.interaction.WasReleasedThisFrame()) 
+>>>>>>> Stashed changes
         {
-            if (playerInput.Player.interaction.IsPressed())
+            holdingInput = false;
+            interactionHoldTimer = 0f;
+        }
+
+        if(holdingInput)
+        {
+            interactionHoldTimer += Time.deltaTime;
+
+            if(interactionHoldTimer >= interactionTime && isTable)
             {
+<<<<<<< Updated upstream
                 if (interactionHoldCounter >= interactionTime)
                 {
                     interactableObject.Interact();
@@ -68,30 +92,13 @@ public class InteractionRadius : MonoBehaviour
                 }
                 interactionHoldCounter += Time.deltaTime;
                 timeStampPressedInteraction = Time.time;
+=======
+                interactableObject.Interact(); holdingInput = false;
+>>>>>>> Stashed changes
             }
-            else
+            else if(!isTable)
             {
-                timeStampPressedInteraction = 0;
-                interactionHoldCounter = 0;
-            }
-
-        }
-
-        if (playerInput.Player.interaction.WasPressedThisFrame())
-        {
-            interactionPressed = true;
-        }
-        else
-        {
-            interactionPressed = false;
-        }
-
-        if (interactionPressed && inInteractionZone)
-        {
-            if (!isTable)
-            {
-                interactableObject.Interact();
-                interactionPressed = false;
+                interactableObject.Interact(); holdingInput = false;
             }
         }
     }
@@ -100,8 +107,9 @@ public class InteractionRadius : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out IInteractable interactable))
         {
-            inInteractionZone = true;
+            interactionFound = true;
             interactableObject = interactable;
+<<<<<<< Updated upstream
             if (collision.TryGetComponent(out Table table))
             {
                 Debug.Log("Is Table");
@@ -111,14 +119,18 @@ public class InteractionRadius : MonoBehaviour
             {
                 isTable = false;
             }
+=======
+            
+            isTable = interactable is Table;         
+>>>>>>> Stashed changes
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Interactable"))
+        if (collision.gameObject.TryGetComponent(out IInteractable interactable))
         {
-            inInteractionZone = false;
-            interactableObject = null;
+            interactionFound = false;
+            isTable = false;
         }
     }
 }
