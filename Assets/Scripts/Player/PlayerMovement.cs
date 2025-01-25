@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     public static Action<PlayerAnimations.PlayerStates> OnPlayerSprint;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerWalk;
-
+    public static Action<PlayerAnimations.PlayerStates> OnPlayerStanding;
 
     private void Awake()
     {
@@ -52,11 +52,23 @@ public class PlayerMovement : MonoBehaviour
         //Gets WASD Inputs and adds them to the velocity
         moveDirection.x = move.ReadValue<Vector2>().x;
         moveDirection.y = move.ReadValue<Vector2>().y;
-        if (moveDirection == Vector2.zero) return;
+        if (moveDirection == Vector2.zero)
+        {
+            if (PlayerStats.Instance.IsChewing)
+            {
+                OnPlayerStanding?.Invoke(PlayerAnimations.PlayerStates.ChewInteract);
+            }
+            else
+            {
+                OnPlayerStanding?.Invoke(PlayerAnimations.PlayerStates.Idle);
+            }
+            return;
+        }
+
 
         if (sprint.IsPressed())
         {
-            SetMoveSpeed(sprintSpeed,PlayerAnimations.PlayerStates.ChewRun,PlayerAnimations.PlayerStates.Run);
+            SetMoveSpeed(sprintSpeed, PlayerAnimations.PlayerStates.ChewRun, PlayerAnimations.PlayerStates.Run);
         }
         else
         {
@@ -64,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SetMoveSpeed(float speed,PlayerAnimations.PlayerStates chewAnimation, PlayerAnimations.PlayerStates normalAnimation)
+    private void SetMoveSpeed(float speed, PlayerAnimations.PlayerStates chewAnimation, PlayerAnimations.PlayerStates normalAnimation)
     {
         movespeed = speed;
         if (PlayerStats.Instance.IsChewing)
