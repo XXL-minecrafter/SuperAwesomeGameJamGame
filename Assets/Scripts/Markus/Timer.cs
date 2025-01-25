@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] public float StartTime {  get; private set; } = 900f;
-    [SerializeField] private float timeLeft;
+    [SerializeField] public int StartTime {  get; private set; } = 900;
+    [SerializeField] private int timeLeft;
     [SerializeField] private bool isRunning;
 
     private Coroutine TimerCoroutine;
+
+    private static Action<int> onTimerUpdated;
+    public static event Action<int> OnTImerUpdated { add => onTimerUpdated += value; remove => onTimerUpdated -= value; }
+
     /// <summary>
     /// Timer mit einer Zeit (Default 900 -> 15 Minuten) initialisieren
     /// </summary>
@@ -46,7 +50,8 @@ public class Timer : MonoBehaviour
         {
             Debug.Log("Verbleibende Zeit: " + timeLeft);
             yield return new WaitForSeconds(1f);
-            timeLeft -= 1f;
+ 
+            SubtractTime(1);
         }
 
         if (timeLeft <= 0)
@@ -63,7 +68,7 @@ public class Timer : MonoBehaviour
     /// Füge dem Timer neue Zeit hinzu
     /// </summary>
     /// <param name="seconds">Anzahl der Sekunden zum hinzufügen</param>
-    public void AddTime(float seconds)
+    public void AddTime(int seconds)
     {
         timeLeft += seconds;
         Debug.Log(seconds + " Sekunden hinzugefügt. Verbleibende Zeit: " + timeLeft);
@@ -73,10 +78,12 @@ public class Timer : MonoBehaviour
     /// Zieht dem Timer eine bestimmte Menge an Zeit ab
     /// </summary>
     /// <param name="seconds">Anzahl der Sekunden zum abziehen</param>
-    public void SubtractTime(float seconds)
+    public void SubtractTime(int seconds)
     {
         timeLeft = Mathf.Max(0, timeLeft - seconds); // Falls die Anzahl der Sekunden ins negative geht dann return 0;
         Debug.Log(seconds + " Sekunden abgezogen. Verbleibende Zeit: " + timeLeft);
+
+        onTimerUpdated?.Invoke(timeLeft);
     }
 
     /// <summary>
