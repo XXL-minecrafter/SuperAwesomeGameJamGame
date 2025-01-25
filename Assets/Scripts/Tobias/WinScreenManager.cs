@@ -1,9 +1,11 @@
 using UnityEngine;
+using System;
 
 public class WinScreenManager : MonoBehaviour
 {
     [SerializeField] private GameObject winScreen;
-    private void OnEnable()
+
+    private void Start()
     {
         PlayerStats.Instance.OnAllGumsPlaced += ShowWinScreen;
     }
