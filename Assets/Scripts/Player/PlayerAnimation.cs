@@ -9,9 +9,11 @@ public class PlayerAnimations : MonoBehaviour
     public static PlayerStates CurrentAnimationState { get; private set; }
     public enum PlayerStates
     {
+        Idle,
         Walk,
         Run,
         Interact,
+        Chewidle,
         ChewWalk,
         ChewRun,
         ChewInteract
@@ -20,6 +22,8 @@ public class PlayerAnimations : MonoBehaviour
     {
         PlayerMovement.OnPlayerSprint += ChangeAnimation;
         PlayerMovement.OnPlayerWalk += ChangeAnimation;
+        PlayerMovement.OnPlayerStanding += ChangeAnimation;
+        PlayerInteraction.OnPlayerInteraction += ChangeAnimation;
     }
 
 
@@ -30,6 +34,9 @@ public class PlayerAnimations : MonoBehaviour
         CurrentAnimationState = state;
         switch (state)
         {
+            case PlayerStates.Idle:
+                animator.Play("PlayerIdle");
+                break;
             case PlayerStates.Walk:
                 animator.Play("PlayerWalk");
                 break;
@@ -47,6 +54,9 @@ public class PlayerAnimations : MonoBehaviour
                 break;
             case PlayerStates.ChewInteract:
                 animator.Play("PlayerChewInteract");
+                break;
+            case PlayerStates.Chewidle:
+                animator.Play("PlayerChewIdle");
                 break;
             default:
                 animator.Play("PlayerIdle");
