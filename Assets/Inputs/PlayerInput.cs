@@ -53,6 +53,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""bubbelGumBlast"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0c7a9c5-3e57-4775-8dc2-effa3ad4a4fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7a80385-30a0-49ce-8776-d61bd3d3ef6c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""bubbelGumBlast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_move = m_Player.FindAction("move", throwIfNotFound: true);
         m_Player_interaction = m_Player.FindAction("interaction", throwIfNotFound: true);
         m_Player_sprint = m_Player.FindAction("sprint", throwIfNotFound: true);
+        m_Player_bubbelGumBlast = m_Player.FindAction("bubbelGumBlast", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +228,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_move;
     private readonly InputAction m_Player_interaction;
     private readonly InputAction m_Player_sprint;
+    private readonly InputAction m_Player_bubbelGumBlast;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -214,6 +236,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @move => m_Wrapper.m_Player_move;
         public InputAction @interaction => m_Wrapper.m_Player_interaction;
         public InputAction @sprint => m_Wrapper.m_Player_sprint;
+        public InputAction @bubbelGumBlast => m_Wrapper.m_Player_bubbelGumBlast;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +255,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @sprint.started += instance.OnSprint;
             @sprint.performed += instance.OnSprint;
             @sprint.canceled += instance.OnSprint;
+            @bubbelGumBlast.started += instance.OnBubbelGumBlast;
+            @bubbelGumBlast.performed += instance.OnBubbelGumBlast;
+            @bubbelGumBlast.canceled += instance.OnBubbelGumBlast;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -245,6 +271,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @sprint.started -= instance.OnSprint;
             @sprint.performed -= instance.OnSprint;
             @sprint.canceled -= instance.OnSprint;
+            @bubbelGumBlast.started -= instance.OnBubbelGumBlast;
+            @bubbelGumBlast.performed -= instance.OnBubbelGumBlast;
+            @bubbelGumBlast.canceled -= instance.OnBubbelGumBlast;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -267,5 +296,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnBubbelGumBlast(InputAction.CallbackContext context);
     }
 }
