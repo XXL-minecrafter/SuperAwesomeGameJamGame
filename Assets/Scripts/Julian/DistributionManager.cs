@@ -138,7 +138,7 @@ public class DistributionManager : MonoBehaviour
 
         if(coinObject.TryGetComponent(out CoinBehaviour coinBehaviour))
         {
-            coinBehaviour.spawnPoint = at;
+            coinBehaviour.SpawnPoint = at;
 
             existingCoins++;
         }
@@ -169,7 +169,7 @@ public class DistributionManager : MonoBehaviour
 
         if(vendingMachineObject.TryGetComponent(out VendingMachineBehaviour vendingMachineBehaviour))
         {
-            vendingMachineBehaviour.spawnPoint = at;
+            vendingMachineBehaviour.SpawnPoint = at;
 
             existingVendingMachines++;
         }
