@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,11 +9,15 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerInput playerInput;
     private InputAction move;
+    private InputAction sprint;
 
     private Rigidbody2D rb2D;
     private PlayerStats playerStats;
     private Vector2 moveDirection;
-    [SerializeField] private float movespeed;
+
+    [SerializeField] private float walkspeed;
+    [SerializeField] private float sprintSpeed;
+    private float movespeed;
 
     private void Awake()
     {
@@ -20,22 +25,17 @@ public class PlayerMovement : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         playerInput = new PlayerInput();
         move = playerInput.Player.move;
+        sprint = playerInput.Player.sprint;
     }
     private void OnEnable()
     {
-        playerInput.Enable();
-        playerInput.Player.Enable();
+        sprint.Enable();
         move.Enable();
-    }
-    void Start()
-    {
-
     }
     private void OnDisable()
     {
         move.Disable();
-        playerInput.Player.Disable();
-        playerInput.Disable();
+        sprint.Disable();
     }
 
     // Update is called once per frame
@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         //Gets WASD Inputs and adds them to the velocity
         moveDirection.x = move.ReadValue<Vector2>().x;
         moveDirection.y = move.ReadValue<Vector2>().y;
+        movespeed = sprint.IsPressed() ? sprintSpeed : walkspeed;
     }
     private void FixedUpdate()
     {
@@ -62,6 +63,5 @@ public class PlayerMovement : MonoBehaviour
             collision.transform.GetComponent<IInteractable>().Interact();
         }
     }
-
 }
 
