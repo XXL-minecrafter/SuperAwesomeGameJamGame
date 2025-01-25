@@ -15,7 +15,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 
     private PlayerStats playerStats;
 
-    private SpawnPoint spawnPoint;
+    public SpawnPoint spawnPoint;
 
 
     private void OnEnable()
