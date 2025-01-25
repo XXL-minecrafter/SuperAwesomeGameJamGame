@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InteractionRadius : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
     private PlayerInput playerInput;
     private InputAction inputActionInteraction;
@@ -12,9 +13,10 @@ public class InteractionRadius : MonoBehaviour
     private bool holdingInput = false;
     [SerializeField] private float interactionTime = 5f;
 
-    private bool interactionPressed = false;
     [SerializeField] private bool interactionFound;
     private bool isTable;
+
+    public static Action<PlayerAnimations.PlayerStates> OnPlayerInteraction;
 
     private void Awake()
     {
@@ -36,7 +38,6 @@ public class InteractionRadius : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO: Gum can also be placed
 
         if (playerInput.Player.interaction.WasPressedThisFrame()) holdingInput = true;
 
@@ -46,17 +47,28 @@ public class InteractionRadius : MonoBehaviour
             interactionHoldTimer = 0f;
         }
 
-        if (holdingInput)
+        if (holdingInput && interactionFound)
         {
+            if (PlayerStats.Instance.IsChewing)
+            {
+                OnPlayerInteraction?.Invoke(PlayerAnimations.PlayerStates.ChewInteract);
+            }
+            else
+            {
+                OnPlayerInteraction?.Invoke(PlayerAnimations.PlayerStates.Idle);
+            }
             interactionHoldTimer += Time.deltaTime;
 
-            if (interactionHoldTimer >= interactionTime && isTable)
+            if (interactionHoldTimer >= interactionTime && isTable && PlayerStats.Instance.IsChewing)
             {
-                interactableObject.Interact(); holdingInput = false;
+                interactableObject.Interact();
+                holdingInput = false;
+                OnPlayerInteraction?.Invoke(PlayerAnimations.PlayerStates.ChewInteract);
             }
             else if (!isTable)
             {
                 interactableObject.Interact(); holdingInput = false;
+                OnPlayerInteraction?.Invoke(PlayerAnimations.PlayerStates.Interact);
             }
         }
     }

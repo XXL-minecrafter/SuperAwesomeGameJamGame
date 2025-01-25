@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -18,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkspeed;
     [SerializeField] private float sprintSpeed;
     private float movespeed;
+
+    public static Action<PlayerAnimations.PlayerStates> OnPlayerSprint;
+    public static Action<PlayerAnimations.PlayerStates> OnPlayerWalk;
+    public static Action<PlayerAnimations.PlayerStates> OnPlayerStanding;
 
     private void Awake()
     {
@@ -46,8 +52,39 @@ public class PlayerMovement : MonoBehaviour
         //Gets WASD Inputs and adds them to the velocity
         moveDirection.x = move.ReadValue<Vector2>().x;
         moveDirection.y = move.ReadValue<Vector2>().y;
-        movespeed = sprint.IsPressed() ? sprintSpeed : walkspeed;
+        if (moveDirection == Vector2.zero)
+        {
+            if (PlayerStats.Instance.IsChewing)
+            {
+                OnPlayerStanding?.Invoke(PlayerAnimations.PlayerStates.ChewInteract);
+            }
+            else
+            {
+                OnPlayerStanding?.Invoke(PlayerAnimations.PlayerStates.Idle);
+            }
+            return;
+        }
+
+
+        if (sprint.IsPressed())
+        {
+            SetMoveSpeed(sprintSpeed, PlayerAnimations.PlayerStates.ChewRun, PlayerAnimations.PlayerStates.Run);
+        }
+        else
+        {
+            SetMoveSpeed(walkspeed, PlayerAnimations.PlayerStates.ChewWalk, PlayerAnimations.PlayerStates.Walk);
+        }
     }
+
+    private void SetMoveSpeed(float speed, PlayerAnimations.PlayerStates chewAnimation, PlayerAnimations.PlayerStates normalAnimation)
+    {
+        movespeed = speed;
+        if (PlayerStats.Instance.IsChewing)
+            OnPlayerSprint?.Invoke(chewAnimation);
+        else
+            OnPlayerSprint?.Invoke(normalAnimation);
+    }
+
     private void FixedUpdate()
     {
         rb2D.velocity = moveDirection * movespeed;

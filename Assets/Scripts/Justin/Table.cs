@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Table : MonoBehaviour, IInteractable
 {
+
     [field: SerializeField] public GameObject InteractionBox { get ; set ; }
+
+    private PlayerStats playerStats;
 
     public void ShowInteractionBox()
     {
@@ -13,6 +16,8 @@ public class Table : MonoBehaviour, IInteractable
         InteractionBox?.SetActive(false);
     }
 
-    public void Interact() => PlayerStats.Instance.PlacedGum();
-
+    public void Interact()
+    {
+        PlayerStats.Instance.PlacedGum();
+    }
 }

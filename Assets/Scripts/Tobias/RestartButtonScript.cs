@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class RestartButtonScript : MonoBehaviour
 {
-   private Button restartButton;
+    private Button restartButton;
 
     private void Awake()
     {

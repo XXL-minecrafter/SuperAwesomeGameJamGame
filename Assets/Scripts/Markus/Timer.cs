@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] public int StartTime {  get; private set; } = 900;
+    [SerializeField] public int StartTime { get; private set; } = 900;
     [SerializeField] private int timeLeft;
     [SerializeField] private bool isRunning;
 
@@ -56,7 +56,7 @@ public class Timer : MonoBehaviour
         {
             Debug.Log("Verbleibende Zeit: " + timeLeft);
             yield return new WaitForSeconds(1f);
- 
+
             SubtractTime(1);
         }
 

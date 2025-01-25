@@ -43,7 +43,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 
     private void CheckGumAmount()
     {
-        if(gumAmount == 0)
+        if (gumAmount == 0)
         {
             SpawnPoint.RemoveSpawnPointObject();
             Destroy(gameObject);

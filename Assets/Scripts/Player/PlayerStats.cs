@@ -21,7 +21,7 @@ public class PlayerStats : MonoBehaviour
     // Action für das Platzieren eines Gum
     public event Action<int> OnGumPlaced;
 
-    [field: SerializeField] public int CurrentCoins {  get; private set; } // gesammelte Anzahl an Coins
+    [field: SerializeField] public int CurrentCoins { get; private set; } // gesammelte Anzahl an Coins
     [field: SerializeField] public int MaxCoins { get; private set; } // Maximale Anzahl an Coins
     [field: SerializeField] public int CoinsFallBack { get; private set; } = 0; // Auf welchen Werst sollen die Coins zurückgesetzt werden 
     [field: SerializeField] public int PlacedBubbleGum { get; private set; } // Wie viele Gums wurden bereits platziert
@@ -30,7 +30,7 @@ public class PlayerStats : MonoBehaviour
 
     public void Awake()
     {
-        if(Instance == null) Instance = this;
+        if (Instance == null) Instance = this;
         else
         {
             Destroy(gameObject); return;
@@ -55,9 +55,9 @@ public class PlayerStats : MonoBehaviour
     /// wird -1 übergeben werden alle Coins entfernt
     /// </summary>
     /// <param name="amount">Anzahl der Coins die entfernt werden sollen</param>
-    public void DecreaseCoins(int amount=0)
+    public void DecreaseCoins(int amount = 0)
     {
-        if(amount == -1)
+        if (amount == -1)
         {
             ResetCoins();
             return;
@@ -92,7 +92,7 @@ public class PlayerStats : MonoBehaviour
     {
         PlacedBubbleGum++;
         OnGumPlaced?.Invoke(PlacedBubbleGum);
-
+        SetChewing(false);
         if (PlacedBubbleGum == PlacedBubbleGumNeeded)
         {
             OnAllGumsPlaced?.Invoke();

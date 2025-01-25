@@ -8,18 +8,18 @@ public class Sound
 
     [SerializeField] private AudioClip clip;
 
-    [SerializeField] [Range(0f, 1f)] private float volume = .5f;
+    [SerializeField][Range(0f, 1f)] private float volume = .5f;
 
     [Header("Pitch")]
-    [SerializeField] [Range(.1f, 5f)] private float pitch = 1f;
+    [SerializeField][Range(.1f, 5f)] private float pitch = 1f;
     [SerializeField] private bool useRandomPitch = false;
 
-    [SerializeField] [Range(.1f, 5f)] private float minimumPitch;
+    [SerializeField][Range(.1f, 5f)] private float minimumPitch;
 
-    [SerializeField] [Range(.1f, 5f)] private float maximumPitch;
+    [SerializeField][Range(.1f, 5f)] private float maximumPitch;
 
     [Header("Others")]
-    [SerializeField] [Range(0f, 1f)] private float spacialBlend;
+    [SerializeField][Range(0f, 1f)] private float spacialBlend;
 
     [SerializeField] private bool loop;
 
@@ -27,7 +27,7 @@ public class Sound
 
     private AudioSource source;
 
-    public bool IsPlaying { get => source.isPlaying; }  
+    public bool IsPlaying { get => source.isPlaying; }
 
     public void CreateSoundSource(GameObject on)
     {
@@ -45,7 +45,7 @@ public class Sound
 
     public void Play()
     {
-        if(useRandomPitch)
+        if (useRandomPitch)
         {
             source.pitch = Random.Range(minimumPitch, maximumPitch);
         }

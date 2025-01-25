@@ -16,11 +16,11 @@ public class Detector : MonoBehaviour
     public bool TryDetectLayer(LayerMask layer, out RaycastHit2D hit)
     {
         var hitObject = Physics2D.Raycast(transform.position, transform.forward.normalized, viewDistance, layer);
-        
+
         color = hitObject.collider ? Color.red : Color.green;
 
         hit = hitObject;
-        return hitObject.collider ? true: false;
+        return hitObject.collider ? true : false;
     }
 
     /// <summary>
