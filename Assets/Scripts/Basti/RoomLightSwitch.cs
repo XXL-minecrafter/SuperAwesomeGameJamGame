@@ -118,7 +118,7 @@ public class RoomLightSwitch : MonoBehaviour
     {
         yield return new WaitForSeconds(turnOffDelay);
 
-        isDelay = true;
+        isDelay = false;
         turnOffTimer = turnOffDelay;
         newIntensity = 0;
         isOn=false;
