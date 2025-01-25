@@ -20,7 +20,6 @@ public class PlayerStats : MonoBehaviour
 
     // Action für das Platzieren eines Gum
     public event Action<int> OnGumPlaced;
-    public event Action<PlayerAnimations.PlayerStates> OnGumStates;
 
     [field: SerializeField] public int CurrentCoins {  get; private set; } // gesammelte Anzahl an Coins
     [field: SerializeField] public int MaxCoins { get; private set; } // Maximale Anzahl an Coins
