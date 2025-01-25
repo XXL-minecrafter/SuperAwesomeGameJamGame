@@ -8,24 +8,14 @@ public class BullyScript : MonoBehaviour,IInteractable
 
     public GameObject InteractionBox { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Interact()
     {
         if (PlayerStats.Instance.CurrentCoins >= neededCoins)
         {
-
+            PlayerStats.Instance.DecreaseCoins(2);
+            Destroy(gameObject);
         }
-
     }
 
     public void ShowInteractionBox()
