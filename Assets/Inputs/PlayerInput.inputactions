@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "bubbelGumBlast",
+                    "name": "bubbleGumBlast",
                     "type": "Button",
                     "id": "f0c7a9c5-3e57-4775-8dc2-effa3ad4a4fa",
                     "expectedControlType": "Button",
@@ -127,7 +127,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "bubbelGumBlast",
+                    "action": "bubbleGumBlast",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

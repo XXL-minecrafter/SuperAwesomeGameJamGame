@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BubbelGumBlast : MonoBehaviour
 {
-    [SerializeField] GameObject enemy;
+    private PlayerInput playerInput;
+    private InputAction bubbleGumBlast;
 
 
     // Start is called before the first frame update

@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InteractionRadius : MonoBehaviour
 {
-    private const int timeStampForNoTable = -1;
+    
     private PlayerInput playerInput;
     private InputAction inputActionInteraction;
+    private InputAction bubbleGumBlast;
+
     private IInteractable interactableObject;
+
+
 
     private float timeStampPressedInteraction;
     private float interactionHoldCounter;
@@ -18,10 +21,13 @@ public class InteractionRadius : MonoBehaviour
     private bool inInteractionZone;
     private bool isTable;
 
+    public event Action BubbleGumBlast;
+
     private void Awake()
     {
         playerInput = new PlayerInput();
         inputActionInteraction = playerInput.Player.interaction;
+        bubbleGumBlast = playerInput.Player.bubbleGumBlast;
     }
 
     // Start is called before the first frame update
@@ -45,7 +51,11 @@ public class InteractionRadius : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Table is: " + isTable);
+        if (bubbleGumBlast.WasPressedThisFrame() && PlayerStats.Instance.IsChewing)
+        {
+            
+        }
+
         if (isTable)
         {
             if (playerInput.Player.interaction.IsPressed())
@@ -56,7 +66,6 @@ public class InteractionRadius : MonoBehaviour
                     timeStampPressedInteraction = 0;
                     interactionHoldCounter = 0;
                 }
-                Debug.Log("Started Pressing: " + Time.time);
                 interactionHoldCounter += Time.deltaTime;
                 timeStampPressedInteraction = Time.time;
             }
@@ -95,6 +104,7 @@ public class InteractionRadius : MonoBehaviour
             interactableObject = interactable;
             if (collision.TryGetComponent(out Table table))
             {
+                Debug.Log("Is Table");
                 isTable = true;
             }
             else
