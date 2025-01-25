@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class VendingMachineBehavior : MonoBehaviour, IInteractable
+public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 {
     private int gumAmount = 2;
 

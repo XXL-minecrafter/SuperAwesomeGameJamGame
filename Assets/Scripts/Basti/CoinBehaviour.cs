@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
-public class CoinBehavior : MonoBehaviour
+public class CoinBehaviour : MonoBehaviour
 {
     private int value = 1;
 

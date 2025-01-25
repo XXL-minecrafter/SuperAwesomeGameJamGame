@@ -148,6 +148,8 @@ public class DistributionManager : MonoBehaviour
     {
         Instantiate(vendingMachinePrefab, at.transform.position, Quaternion.identity);
 
+        
+
         existingVendingMachines++;
     }
     #endregion
