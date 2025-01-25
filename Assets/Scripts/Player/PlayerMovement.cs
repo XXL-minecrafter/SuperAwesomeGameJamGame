@@ -58,10 +58,6 @@ public class PlayerMovement : MonoBehaviour
         {
             collision.transform.GetComponent<ICollectable>().Collect();
         }
-        if (collision.transform.tag == "Interactable")
-        {
-            collision.transform.GetComponent<IInteractable>().Interact();
-        }
     }
 }
 
