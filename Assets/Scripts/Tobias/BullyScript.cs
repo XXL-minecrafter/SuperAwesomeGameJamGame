@@ -6,14 +6,14 @@ public class BullyScript : MonoBehaviour,IInteractable
 {
     private int neededCoins = 2;
 
-    public GameObject InteractionBox { get; set; }
+    [field:SerializeField] public GameObject InteractionBox { get; set; }
 
 
     public void Interact()
     {
         if (PlayerStats.Instance.CurrentCoins >= neededCoins)
         {
-            PlayerStats.Instance.DecreaseCoins(2);
+            PlayerStats.Instance.DecreaseCoins(neededCoins);
             Destroy(gameObject);
         }
     }
