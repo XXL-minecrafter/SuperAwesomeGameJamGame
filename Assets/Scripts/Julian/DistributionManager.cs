@@ -120,9 +120,14 @@ public class DistributionManager : MonoBehaviour
 
     private void SpawnCoin(SpawnPoint at)
     {
-        Instantiate(coinPrefab, at.transform.position, Quaternion.identity);
+        GameObject coinObject = Instantiate(coinPrefab, at.transform.position, Quaternion.identity);
 
-        existingCoins++;
+        if(coinObject.TryGetComponent(out CoinBehaviour coinBehaviour))
+        {
+            //coinBehaviour.
+
+            existingCoins++;
+        }
     }
     #endregion
 
@@ -146,11 +151,14 @@ public class DistributionManager : MonoBehaviour
 
     private void SpawnVendingMachine(SpawnPoint at)
     {
-        Instantiate(vendingMachinePrefab, at.transform.position, Quaternion.identity);
+        GameObject vendingMachineObject = Instantiate(vendingMachinePrefab, at.transform.position, Quaternion.identity);
 
-        
+        if(vendingMachineObject.TryGetComponent(out VendingMachineBehaviour vendingMachineBehaviour))
+        {
+            //vendingMachineBehaviour.
 
-        existingVendingMachines++;
+            existingVendingMachines++;
+        }
     }
     #endregion
 
