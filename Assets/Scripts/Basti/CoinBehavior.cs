@@ -9,6 +9,8 @@ public class CoinBehavior : MonoBehaviour
 
     private PlayerStats playerStats;
 
+    private SpawnPoint spawnPoint;
+
     private void Awake()
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -26,6 +28,7 @@ public class CoinBehavior : MonoBehaviour
     {
         playerStats.IncreaseCoins(value);
 
+        spawnPoint.HasObject = false;
         Destroy(gameObject);
         Destroy(this);
     }

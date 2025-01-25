@@ -15,7 +15,7 @@ public class VendingMachineBehavior : MonoBehaviour, IInteractable
 
     private PlayerStats playerStats;
 
-    //private SpawnPoint spawnPoint;
+    private SpawnPoint spawnPoint;
 
 
     private void OnEnable()
@@ -55,7 +55,9 @@ public class VendingMachineBehavior : MonoBehaviour, IInteractable
     {
         if(gumAmount == 0)
         {
-            
+            spawnPoint.HasObject = false;
+            Destroy(gameObject);
+            Destroy(this);
         }
     }
 }
