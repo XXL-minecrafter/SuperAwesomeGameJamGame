@@ -30,7 +30,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 
         gumAmount -= 1;
 
-        playerStats.setChewing(true);
+        playerStats.SetChewing(true);
 
         CheckGumAmount();
     }
@@ -39,7 +39,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     {
         gumAmount -= 1;
 
-        playerStats.setChewing(true);
+        playerStats.SetChewing(true);
 
     }
 

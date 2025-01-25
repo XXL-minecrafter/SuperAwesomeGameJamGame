@@ -9,12 +9,12 @@ public class WinScreenManager : MonoBehaviour
     [SerializeField] private GameObject winScreen;
     private void OnEnable()
     {
-        PlayerStats.OnAllGumsPlaced += ShowWinScreen;
+        PlayerStats.Instance.OnAllGumsPlaced += ShowWinScreen;
     }
 
     private void OnDisable()
     {
-        PlayerStats.OnAllGumsPlaced -= ShowWinScreen;
+        PlayerStats.Instance.OnAllGumsPlaced -= ShowWinScreen;
     }
 
     private void ShowWinScreen()

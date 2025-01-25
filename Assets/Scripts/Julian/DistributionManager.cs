@@ -45,9 +45,7 @@ public class DistributionManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Resources.UnloadAsset(coinPrefab);
-        Resources.UnloadAsset(vendingMachinePrefab);
-        Resources.UnloadAsset(gumPlacePrefab);
+        Resources.UnloadUnusedAssets();
 
         SpawnPoint.OnObjectCleared -= RemoveSpawnPointObject;
     }
