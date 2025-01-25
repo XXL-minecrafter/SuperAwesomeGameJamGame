@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementRange: 2
+  movementSpeed: 1
   rotationSpeed: 10
   blockingLayer:
     serializedVersion: 2

@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour
         if (CurrentCoins <= MaxCoins) return; // Raus wenn wir bereits die maximale Anzahl an Münzen haben
 
         CurrentCoins += amount;
-        OnSetCoins?.Invoke(amount); // Event auslösen, wenn Coins erhöht werden
+        OnSetCoins?.Invoke(CurrentCoins); // Event auslösen, wenn Coins erhöht werden
     } // End public void IncreaseCoins(int amount)
 
     /// <summary>
@@ -62,8 +62,8 @@ public class PlayerStats : MonoBehaviour
             ResetCoins();
             return;
         }
-        CurrentCoins += amount;
-        OnSetCoins?.Invoke(amount); // Event auslösen, wenn Coins erhöht werden
+        CurrentCoins -= amount;
+        OnSetCoins?.Invoke(CurrentCoins); // Event auslösen, wenn Coins erhöht werden
     } // End public void IncreaseCoins(int amount)
 
     /// <summary>
