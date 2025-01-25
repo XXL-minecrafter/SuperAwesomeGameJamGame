@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -54,12 +51,12 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
         }
     }
 
-    public void LoadInteractionBox()
+    public void ShowInteractionBox()
     {
         throw new System.NotImplementedException();
     }
 
-    public void ShowInteractionBox()
+    public void DisableInteractionBox()
     {
         throw new System.NotImplementedException();
     }
