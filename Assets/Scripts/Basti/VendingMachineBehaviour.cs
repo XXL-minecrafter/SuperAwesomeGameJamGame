@@ -7,16 +7,12 @@ using UnityEngine.InputSystem;
 public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 {
     private int gumAmount = 2;
-    private bool isUsed;
 
     private PlayerInput playerInput;
     private InputAction interact;
 
     private PlayerStats playerStats;
     public SpawnPoint SpawnPoint;
-
-
-
 
 
     private void OnEnable()
@@ -27,22 +23,16 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
     }
 
-    private void Update()
-    {
-        if (isUsed && interact.WasPressedThisFrame())
-        {
-            VendingMachinePulled();
-        }
-
-        CheckGumAmount();
-    }
-
 
     public void Interact()
     {
-        isUsed = true;
-        //Open UI for VendingMachine 
+        //Play Animation "Lever pulled"
 
+        gumAmount -= 1;
+
+        playerStats.setChewing(true);
+
+        CheckGumAmount();
     }
 
     private void VendingMachinePulled()
@@ -51,7 +41,6 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 
         playerStats.setChewing(true);
 
-        //Close UI for VendingMachine
     }
 
     private void CheckGumAmount()
