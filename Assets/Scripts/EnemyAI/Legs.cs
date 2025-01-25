@@ -25,17 +25,23 @@ public class Legs : MonoBehaviour
         {
             destination = CalculateNewWaypoint();
 
-            // TODO: Needs to rotate too
-
             while (Vector2.Distance(transform.position, destination) >= distanceMargin)
             {
                 transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime;
-                
+
+                // TODO: SMOOTHER!
+                float angle = Mathf.Atan2(destination.y - transform.position.y, destination.x - transform.position.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
 
                 yield return null;
             }
         }
     }
+
+    //private IEnumerator RotateTowards()
+    //{
+    //    
+    //}
 
     public Vector2 CalculateNewWaypoint()
     {

@@ -410,11 +410,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   precision: 6
-  viewDistance: 10
+  viewDistance: 4
   fov: 60
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
+  rotation: {x: 0, y: 90, z: 90}
 --- !u!1 &622241045
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class Eyes : MonoBehaviour
     [SerializeField] private float fov = 60f;
     [Space]
     [SerializeField] private LayerMask detectionLayer;
+    [SerializeField] private Vector3 rotation;
 
     public bool TargetInSight { get; private set; }
 
@@ -52,11 +53,15 @@ public class Eyes : MonoBehaviour
 
         int count = Mathf.FloorToInt(detectorCount * .5f);
 
+        var eyeSocket = new GameObject("Eye Socket").transform;
+        eyeSocket.SetParent(transform, false);
+        eyeSocket.rotation = Quaternion.Euler(rotation);
+
         for (int i = -count; i <= count; i++)
         {
             var detectorObject = new GameObject($"Detector_{i + count}", typeof(Detector));
             detectorObject.transform.rotation = Quaternion.Euler(0, i * (fov / detectorCount), 0);
-            detectorObject.transform.SetParent(anchor, false);
+            detectorObject.transform.SetParent(eyeSocket, false);
 
             var detector = detectorObject.GetComponent<Detector>();
             detector.SetViewDistance(viewDistance);
