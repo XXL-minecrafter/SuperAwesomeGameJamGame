@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementRange: 2
+  rotationSpeed: 10
   blockingLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1179,7 +1180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &879618809
 SpriteRenderer:
   m_ObjectHideFlags: 0
