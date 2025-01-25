@@ -6,11 +6,8 @@ public class PlayerStats : MonoBehaviour
     public static PlayerStats Instance { get; private set; }
 
 
-    // Action für das Erhöhen der Coins
-    public event Action<int> OnIncreaseCoins;
-
-    // Action für das Verringern der Coins
-    public event Action<int> OnDecreaseCoins;
+    // Action für das Setzen der Coins
+    public event Action<int> OnSetCoins;
 
     // Action für das Zurücksetzen der Coins
     public event Action OnResetCoins;
@@ -20,6 +17,9 @@ public class PlayerStats : MonoBehaviour
 
     // Action für das Beenden des Spiels wenn alle Gums platziert worden sind
     public event Action OnAllGumsPlaced;
+
+    // Action für das Platzieren eines Gum
+    public event Action<int> OnGumPlaced;
 
     [field: SerializeField] public int CurrentCoins {  get; private set; } // gesammelte Anzahl an Coins
     [field: SerializeField] public int MaxCoins { get; private set; } // Maximale Anzahl an Coins
@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour
         if (CurrentCoins <= MaxCoins) return; // Raus wenn wir bereits die maximale Anzahl an Münzen haben
 
         CurrentCoins += amount;
-        OnIncreaseCoins?.Invoke(amount); // Event auslösen, wenn Coins erhöht werden
+        OnSetCoins?.Invoke(amount); // Event auslösen, wenn Coins erhöht werden
     } // End public void IncreaseCoins(int amount)
 
     /// <summary>
@@ -63,7 +63,7 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         CurrentCoins += amount;
-        OnDecreaseCoins?.Invoke(amount); // Event auslösen, wenn Coins erhöht werden
+        OnSetCoins?.Invoke(amount); // Event auslösen, wenn Coins erhöht werden
     } // End public void IncreaseCoins(int amount)
 
     /// <summary>
@@ -91,6 +91,8 @@ public class PlayerStats : MonoBehaviour
     public void PlacedGum()
     {
         PlacedBubbleGum++;
+        OnGumPlaced?.Invoke(PlacedBubbleGum);
+
         if (PlacedBubbleGum == PlacedBubbleGumNeeded)
         {
             OnAllGumsPlaced?.Invoke();
