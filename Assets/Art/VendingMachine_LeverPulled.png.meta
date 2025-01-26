@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7577684e40389e349b9cd4a45d4eda4a
+guid: d5b8643c765bf6341aca2eb532cf0b8c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 512
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gum_Splash_0
+      name: VendingMachine_LeverPulled_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 32
-        width: 436
-        height: 419
+        x: 79
+        y: 91
+        width: 270
+        height: 294
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a73165b992e69e14e95fd5a7caa13002
-      internalID: 365248609
+      spriteID: bdc03377cd47d484f901d6ec6fb91ff1
+      internalID: 933954542
       vertices: []
       indices: 
       edges: []
@@ -128,7 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Gum_Splash_0: 365248609
+      VendingMachine_LeverPulled_0: 933954542
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
