@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build.Content;
@@ -10,6 +11,7 @@ public class CoinBehaviour : MonoBehaviour , ICollectable
     private PlayerStats playerStats;
     public SpawnPoint SpawnPoint;
 
+    public static Action OnCoinCollect;
     private void Awake()
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -20,6 +22,7 @@ public class CoinBehaviour : MonoBehaviour , ICollectable
         playerStats.IncreaseCoins(value);
 
         SpawnPoint.RemoveSpawnPointObject();
+        OnCoinCollect?.Invoke();
         Destroy(gameObject);
     }
 }
