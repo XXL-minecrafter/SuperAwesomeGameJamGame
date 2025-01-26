@@ -27,6 +27,16 @@ public class Legs : MonoBehaviour
         // if the enemy partrols, use CalculateNewWaypoint() and pass it in Brain.FindPath()
         // else get a random waypoint from the waypoint class and pass it in Brain.FindPath()
     }
+    private void OnEnable()
+    {
+        PlayerCaught.OnPlayerCaught += ToggleFreeze;
+        CatchTransitionscript.OnFullBlackScreen += ToggleFreeze;
+    }
+    private void OnDisable()
+    {
+        PlayerCaught.OnPlayerCaught -= ToggleFreeze;
+        CatchTransitionscript.OnFullBlackScreen -= ToggleFreeze;
+    }
 
     private void Update()
     {

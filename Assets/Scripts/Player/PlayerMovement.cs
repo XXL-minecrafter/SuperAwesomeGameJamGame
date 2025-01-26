@@ -58,9 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Gets WASD Inputs and adds them to the velocity
         moveDirection.x = move.ReadValue<Vector2>().x;
-        moveDirection.y = move.ReadValue<Vector2>().y;
-        Debug.Log("X: " + moveDirection.x);
-        Debug.Log("y: " + moveDirection.y);
+
         if (moveDirection == Vector2.zero)
         {
             if (PlayerStats.Instance.IsChewing)
@@ -122,11 +120,17 @@ public class PlayerMovement : MonoBehaviour
         // Setze die neue Rotation
         spriteRenderer.transform.eulerAngles = new Vector3(0, 0, angle);
     }
+    /// <summary>
+    /// Disables the Inputs of the Player
+    /// </summary>
     public void DisableInputs()
     {
         move.Disable();
         sprint.Disable();
     }
+    /// <summary>
+    /// Enables the Inputs of the Player
+    /// </summary>
     public void EnableInputs()
     {
         sprint.Enable();

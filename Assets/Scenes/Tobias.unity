@@ -5653,6 +5653,7 @@ GameObject:
   - component: {fileID: 599348707}
   - component: {fileID: 599348706}
   - component: {fileID: 599348705}
+  - component: {fileID: 599348710}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -5773,6 +5774,18 @@ Transform:
   - {fileID: 1973273112}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &599348710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599348704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60efe6e23c2c8374d8c7051d92b2dc3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &649281404
 GameObject:
   m_ObjectHideFlags: 0
@@ -7643,6 +7656,7 @@ GameObject:
   - component: {fileID: 1617485987}
   - component: {fileID: 1617485986}
   - component: {fileID: 1617485985}
+  - component: {fileID: 1617485989}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -7739,6 +7753,27 @@ Transform:
   - {fileID: 2080246721}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1617485989
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617485984}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 15ce620b27c80db41bc1bc440c8ce52f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1643400889
 GameObject:
   m_ObjectHideFlags: 0

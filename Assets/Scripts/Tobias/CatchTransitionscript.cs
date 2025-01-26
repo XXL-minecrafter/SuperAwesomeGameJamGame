@@ -48,7 +48,6 @@ public class CatchTransitionscript : MonoBehaviour
         {
             canvasGroup.alpha -= Time.deltaTime * animationspeed;
             yield return null;
-
         }
     }
 }
