@@ -1,25 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(NodeGrid))]
-public class Pathfinding : MonoBehaviour
+public class Brain : MonoBehaviour
 {
+    [SerializeField] private Transform target;
+    [SerializeField] private bool useTargetObject;
+    private Vector3 targetPosition = Vector3.zero;
+
     private NodeGrid nodeGrid;
+    public NodeGrid NodeGrid => nodeGrid;
 
     private List<Node> openNodes;
     private HashSet<Node> closedNodes;
 
-    public Transform seeker;
-    public Transform target;
-
     private void Awake()
     {
-        nodeGrid = GetComponent<NodeGrid>();
+        nodeGrid = FindObjectOfType<NodeGrid>();
     }
 
     private void Update()
     {
-        FindPath(seeker.position, target.position);
+        FindPath(transform.position, useTargetObject ? target.position : targetPosition);
     }
 
     private void FindPath(Vector2 startPos, Vector2 endPos)
@@ -105,5 +106,9 @@ public class Pathfinding : MonoBehaviour
         else        
             return 14 * distanceX + 10 * (distanceY - distanceX);
     }
+
+    public void OverrideTarget(Vector2 target) => targetPosition = target;
+
+    public Vector2 Next() => nodeGrid.Path.Count > 0 ? nodeGrid.Path[0].worldPosition : transform.position;
 }
     
