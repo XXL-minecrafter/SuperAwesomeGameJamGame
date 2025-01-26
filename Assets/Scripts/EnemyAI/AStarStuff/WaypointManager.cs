@@ -13,7 +13,7 @@ public class Waypoint
 
 public class WaypointManager : MonoBehaviour
 {
-    private readonly List<Waypoint> wayPoints = new();
+    [SerializeField] private List<Waypoint> wayPoints = new();
 
     [SerializeField] private float highPriorityChance = .5f;
     [SerializeField] private float mediumPriorityChance = .3f;
