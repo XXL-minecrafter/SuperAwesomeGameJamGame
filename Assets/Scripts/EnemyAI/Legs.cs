@@ -12,15 +12,15 @@ public class Legs : MonoBehaviour
     [SerializeField] private LayerMask blockingLayer;
 
     private Brain brain;
+    private Collider2D enemyCollider;
 
     private Vector2 destination;
     private bool freezeMovement;
 
-    private bool isRoaming;
-
     private void Awake()
     {
         brain = GetComponent<Brain>();
+        enemyCollider = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -43,8 +43,6 @@ public class Legs : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(brain.Next());
-
         if (freezeMovement) return;
         Move();
     }
@@ -64,26 +62,24 @@ public class Legs : MonoBehaviour
             var currentRotation = transform.right;
             var targetRotation = (Vector3)destination - transform.position;
             transform.right = Vector3.RotateTowards(currentRotation, targetRotation, rotationSpeed * Time.deltaTime, 1f);
-        }
-        else destination = isRoaming ? CalculateNewWaypoint() : brain.Next();
+
+            return;
+        }        
+        else destination = brain.Next();
     }
 
-    public void StartRoaming(System.Func<Vector2> callback) => StartCoroutine(RoamingCO(callback));
+    public void StartRoaming(System.Func<Vector2> callback = null) => StartCoroutine(RoamingCO(callback));
 
     private IEnumerator RoamingCO(System.Func<Vector2> callback)
     {
-        isRoaming = true;
+        brain.ToggleRoaming();
 
         yield return new WaitForSeconds(roamingDuration);
 
-        isRoaming = false;
-
-        destination = callback.Invoke();
+        brain.ToggleRoaming();
     }
 
     public void ToggleFreeze() => freezeMovement = !freezeMovement;
-
-    public bool ToggleRoaming() => freezeMovement = !freezeMovement;
 
     public Vector2 CalculateNewWaypoint()
     {
@@ -91,8 +87,8 @@ public class Legs : MonoBehaviour
 
         //var hit = Physics2D.Raycast(transform.position, randomPosition, Vector2.Distance(transform.position, randomPosition), blockingLayer);
         var hit = Physics2D.Linecast(transform.position, randomPosition, blockingLayer);
-
-        if (hit.collider) return CalculateNewWaypoint();
+        
+        if (hit.collider || !brain.NodeGrid.NodeFromWorldPoint(randomPosition).walkable) return CalculateNewWaypoint();
         else return randomPosition;
     }
 
