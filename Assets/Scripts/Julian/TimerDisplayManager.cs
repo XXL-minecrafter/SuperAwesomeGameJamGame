@@ -20,6 +20,6 @@ public class TimerDisplayManager : MonoBehaviour
         int minutes = (int)(timeLeft / 60f);
         int seconds = timeLeft % 60;
 
-        timerText.text = $"{minutes}:{seconds}";
+        timerText.text = $"{minutes}:{(seconds > 10 ? $"{seconds}" : $"0{seconds}")}";
     }
 }

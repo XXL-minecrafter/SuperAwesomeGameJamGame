@@ -8,8 +8,6 @@ public class Timer : MonoBehaviour
     [SerializeField] private int timeLeft;
     [SerializeField] private bool isRunning;
 
-    private Coroutine TimerCoroutine;
-
     private static Action<int> onTimerUpdated;
     public static event Action<int> OnTImerUpdated { add => onTimerUpdated += value; remove => onTimerUpdated -= value; }
 
@@ -19,14 +17,13 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Timer mit einer Zeit (Default 900 -> 15 Minuten) initialisieren
     /// </summary>
-    //private Timer()
-    private void Awake()
+    private void Start()
     {
         timeLeft = StartTime; // Startzeit setzen
 
         onTimerUpdated?.Invoke(timeLeft);
 
-        isRunning = false; // Darf nicht läufen
+        StartTimer();
     }
 
     /// <summary>
@@ -41,10 +38,7 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Stopt den Timer
     /// </summary>
-    public void StopTimer()
-    {
-        isRunning = false; // Halte den Timer an
-    }
+    public void StopTimer() => isRunning = false; // Halte den Timer an
 
     /// <summary>
     /// Coroutine, die den Timer herunterzählt
@@ -60,11 +54,8 @@ public class Timer : MonoBehaviour
             SubtractTime(1);
         }
 
-        if (timeLeft <= 0)
-        {
-            Debug.Log("Zeit ist abgelaufen!");
-            onTimerRanOut?.Invoke();
-        }
+        //Zeit abgelaufen
+        if (timeLeft <= 0) onTimerRanOut?.Invoke();
         else
         {
             Debug.Log("Timer gestoppt.");
@@ -75,11 +66,7 @@ public class Timer : MonoBehaviour
     /// Füge dem Timer neue Zeit hinzu
     /// </summary>
     /// <param name="seconds">Anzahl der Sekunden zum hinzufügen</param>
-    public void AddTime(int seconds)
-    {
-        timeLeft += seconds;
-        Debug.Log(seconds + " Sekunden hinzugefügt. Verbleibende Zeit: " + timeLeft);
-    }
+    public void AddTime(int seconds) => timeLeft += seconds;
 
     /// <summary>
     /// Zieht dem Timer eine bestimmte Menge an Zeit ab
@@ -88,7 +75,6 @@ public class Timer : MonoBehaviour
     public void SubtractTime(int seconds)
     {
         timeLeft = Mathf.Max(0, timeLeft - seconds); // Falls die Anzahl der Sekunden ins negative geht dann return 0;
-        Debug.Log(seconds + " Sekunden abgezogen. Verbleibende Zeit: " + timeLeft);
 
         onTimerUpdated?.Invoke(timeLeft);
     }

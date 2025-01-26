@@ -5,7 +5,6 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance { get; private set; }
 
-
     // Action für das Setzen der Coins
     public event Action<int> OnSetCoins;
 

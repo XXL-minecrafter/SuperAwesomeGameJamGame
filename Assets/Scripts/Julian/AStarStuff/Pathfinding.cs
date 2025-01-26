@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(NodeGrid))]
 public class Pathfinding : MonoBehaviour
 {
     private NodeGrid nodeGrid;
