@@ -112,7 +112,9 @@ public class PlayerMovement : MonoBehaviour
     {
 
         // Berechnung des Zielwinkels basierend auf der Bewegungsrichtung
-        float targetAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        float targetAngle = Mathf.Atan2(moveDirection.x*-1, moveDirection.y) * Mathf.Rad2Deg;
+        //float targetAngle = Mathf.Atan2(spriteRenderer.transform.position.y, spriteRenderer.transform.position.x) * Mathf.Rad2Deg;
+
 
         // Sanfte Interpolation der aktuellen Rotation zum Zielwinkel
         float angle = Mathf.LerpAngle(transform.eulerAngles.z, targetAngle, Time.deltaTime * rotationSpeed);
