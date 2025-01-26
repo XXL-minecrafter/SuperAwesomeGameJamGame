@@ -32,7 +32,7 @@ public class AudioTransition : MonoBehaviour
         audioSource.Play();
     }
 
-    public void RaiseIntensityLevel()
+    public void ToggleIntensityLevel()
     {
         if (switchAudioOperation is not null) StopCoroutine(switchAudioOperation);
 
@@ -58,7 +58,9 @@ public class AudioTransition : MonoBehaviour
 
     private IEnumerator SwitchAudio(Audio clip, float waitDuration = -1)
     {
+        // Waits for either the rest of the beat or for the specified wait duration
         yield return new WaitForSeconds(waitDuration == -1 ? clip.BeatDuration - (audioSource.time % clip.BeatDuration) : waitDuration);
+
         audioSource.clip = clip.Clip;
         audioSource.Play();
     }
@@ -86,7 +88,7 @@ public class AudioTransitionEditor : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.IntField("Current intensity:", audioTransition.GetCurrentIntensity());
-        if (GUILayout.Button("Raise Intensity Level")) audioTransition.RaiseIntensityLevel();
+        if (GUILayout.Button("Raise Intensity Level")) audioTransition.ToggleIntensityLevel();
         EditorGUILayout.EndHorizontal();
     }
 }
