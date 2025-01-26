@@ -27,6 +27,7 @@ public class PlayerCaught : MonoBehaviour
     {
         if (collision.transform.tag == "Enemy" && PlayerStats.Instance.IsChewing)
         {
+            PlayerStats.Instance.SetChewing(false);
             OnPlayerCaught?.Invoke();
         }
     }

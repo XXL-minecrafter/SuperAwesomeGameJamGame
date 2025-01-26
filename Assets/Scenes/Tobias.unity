@@ -5654,6 +5654,7 @@ GameObject:
   - component: {fileID: 599348706}
   - component: {fileID: 599348705}
   - component: {fileID: 599348710}
+  - component: {fileID: 599348711}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -5786,6 +5787,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60efe6e23c2c8374d8c7051d92b2dc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &599348711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599348704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cca91197ee4938449c765b04d89ec0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  useTargetObject: 0
 --- !u!1 &649281404
 GameObject:
   m_ObjectHideFlags: 0
@@ -7657,6 +7672,7 @@ GameObject:
   - component: {fileID: 1617485986}
   - component: {fileID: 1617485985}
   - component: {fileID: 1617485989}
+  - component: {fileID: 1617485990}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -7774,6 +7790,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1617485990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617485984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cca91197ee4938449c765b04d89ec0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  useTargetObject: 0
 --- !u!1 &1643400889
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Gets WASD Inputs and adds them to the velocity
         moveDirection.x = move.ReadValue<Vector2>().x;
-
+        moveDirection.y = move.ReadValue<Vector2>().y;
         if (moveDirection == Vector2.zero)
         {
             if (PlayerStats.Instance.IsChewing)
