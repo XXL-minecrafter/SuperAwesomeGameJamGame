@@ -14,7 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float interactionTime = 5f;
 
     [SerializeField] private bool interactionFound;
-    private bool isTable;
+    private bool isGumPlace;
 
     public static Action<PlayerAnimations.PlayerStates> OnPlayerInteraction;
 
@@ -59,13 +59,13 @@ public class PlayerInteraction : MonoBehaviour
             }
             interactionHoldTimer += Time.deltaTime;
 
-            if (interactionHoldTimer >= interactionTime && isTable && PlayerStats.Instance.IsChewing)
+            if (interactionHoldTimer >= interactionTime && isGumPlace && PlayerStats.Instance.IsChewing)
             {
                 interactableObject.Interact();
                 holdingInput = false;
                 OnPlayerInteraction?.Invoke(PlayerAnimations.PlayerStates.ChewInteract);
             }
-            else if (!isTable)
+            else if (!isGumPlace)
             {
                 interactableObject.Interact(); holdingInput = false;
                 OnPlayerInteraction?.Invoke(PlayerAnimations.PlayerStates.Interact);
@@ -82,7 +82,7 @@ public class PlayerInteraction : MonoBehaviour
 
             interactableObject.ShowInteractionBox();
 
-            isTable = interactable is Table;
+            isGumPlace = interactable is GumPlace;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -93,7 +93,7 @@ public class PlayerInteraction : MonoBehaviour
 
             interactableObject.DisableInteractionBox();
 
-            isTable = false;
+            isGumPlace = false;
         }
     }
 }
