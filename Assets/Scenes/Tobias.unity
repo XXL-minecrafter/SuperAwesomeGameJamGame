@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackout: 0
-  whiteout: 0
+  secondsInBlackScreen: 0
   animationspeed: 0.5
 --- !u!114 &986677596
 MonoBehaviour:
@@ -2251,6 +2251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkspeed: 5
   sprintSpeed: 8
+  rotationSpeed: 10
 --- !u!50 &1695581606
 Rigidbody2D:
   serializedVersion: 4

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,11 +17,15 @@ public class CatchTransitionscript : MonoBehaviour
     {
         canvasGroup = GetComponent<CanvasGroup>();
     }
-    private void Start()
+    private void OnEnable()
+    {
+        PlayerMovement.PlayerCaught += Transition;
+    }
+    public void Transition()
     {
         StartCoroutine(StartTransition());
     }
-    public IEnumerator StartTransition()
+    private IEnumerator StartTransition()
     {
         while (canvasGroup.alpha < 1)
         {

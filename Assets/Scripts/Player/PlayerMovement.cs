@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public static Action<PlayerAnimations.PlayerStates> OnPlayerSprint;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerWalk;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerStanding;
+    public static Action PlayerCaught;
+
 
     private void Awake()
     {
@@ -98,6 +101,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.transform.tag == "Collectable")
         {
             collision.transform.GetComponent<ICollectable>().Collect();
+        }
+        if (collision.transform.tag == "Enemy" && playerStats.IsChewing)
+        {
+            PlayerCaught?.Invoke();
         }
     }
 
