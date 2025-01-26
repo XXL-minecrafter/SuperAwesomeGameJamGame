@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class Brain : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+    [SerializeField] private Transform player;
     [SerializeField] private bool useTargetObject;
     private Vector3 targetPosition = Vector3.zero;
 
     private Legs legs;
 
     private NodeGrid nodeGrid;
+    public NodeGrid NodeGrid => nodeGrid;
     private WaypointManager waypointManager;
 
     private List<Node> openNodes;
     private HashSet<Node> closedNodes;
 
-    public bool IsChasing { get; private set; }
+    public bool IsChasing;
+    public bool IsRoaming;
 
     private void Awake()
     {
@@ -33,10 +35,32 @@ public class Brain : MonoBehaviour
     {
         if (!nodeGrid) return;
 
-        // Selecting new waypoint, if current one was reached and enemy is not actively chasing
-        if (!IsChasing && Vector2.Distance(transform.position, targetPosition) < 1f) legs.StartRoaming(waypointManager.FindRandomWaypointPosition);
+        targetPosition = SelectTargetPosition();
+        ChangeState();
 
-        FindPath(transform.position, useTargetObject ? target.position : targetPosition);
+        FindPath(transform.position, targetPosition);
+    }
+
+    private void ChangeState()
+    {
+        if (!IsRoaming && !IsChasing && Vector2.Distance(transform.position, targetPosition) < 1f) legs.StartRoaming();
+    }
+
+    private Vector3 SelectTargetPosition()
+    {
+        // Use target object as new target position
+        if (IsChasing) return player.position;
+
+        else if (Vector2.Distance(transform.position, targetPosition) < 1f)
+        {
+            // Select random point inside current room
+            if (IsRoaming) return legs.CalculateNewWaypoint();
+
+            // Select new room if target reached and enemy is not roaming
+            else return waypointManager.FindRandomWaypointPosition();
+        }
+
+        return targetPosition;
     }
 
     private void FindPath(Vector2 startPos, Vector2 endPos)
@@ -126,5 +150,7 @@ public class Brain : MonoBehaviour
     public void OverrideTarget(Vector2 target) => targetPosition = target;
 
     public Vector2 Next() => nodeGrid.Path.Count > 0 ? nodeGrid.Path[0].worldPosition : transform.position;
+
+    public void ToggleRoaming() => IsRoaming = !IsRoaming;
 }
     
