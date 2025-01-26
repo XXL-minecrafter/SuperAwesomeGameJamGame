@@ -2,20 +2,19 @@ using UnityEngine;
 
 public class VendingMachineTestScript : MonoBehaviour, IInteractable
 {
-    public GameObject InteractionBox { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    [field: SerializeField] public GameObject InteractionBox { get; set; }
 
+    public void ShowInteractionBox()
+    {
+        InteractionBox?.SetActive(true);
+    }
     public void DisableInteractionBox()
     {
-        throw new System.NotImplementedException();
+        InteractionBox?.SetActive(false);
     }
 
     public void Interact()
     {
-        Debug.Log("Interaction startetd");
-    }
-
-    public void ShowInteractionBox()
-    {
-        throw new System.NotImplementedException();
+        PlayerStats.Instance.PlacedGum();
     }
 }
