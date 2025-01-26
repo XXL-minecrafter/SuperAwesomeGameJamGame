@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkspeed;
     [SerializeField] private float sprintSpeed;
     private float movespeed;
+    [SerializeField] private float rotationSpeed = 10f; // Rotation des Spieler auf Z
 
     public static Action<PlayerAnimations.PlayerStates> OnPlayerSprint;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerWalk;
@@ -52,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
         //Gets WASD Inputs and adds them to the velocity
         moveDirection.x = move.ReadValue<Vector2>().x;
         moveDirection.y = move.ReadValue<Vector2>().y;
+        Debug.Log("X: " + moveDirection.x);
+        Debug.Log("y: " + moveDirection.y);
         if (moveDirection == Vector2.zero)
         {
             if (PlayerStats.Instance.IsChewing)
@@ -65,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        RotatePlayer();
 
         if (sprint.IsPressed())
         {
@@ -96,5 +100,34 @@ public class PlayerMovement : MonoBehaviour
             collision.transform.GetComponent<ICollectable>().Collect();
         }
     }
+
+    /// <summary>
+    /// Rotiert den Spieler in die Bewegungsrichtung
+    /// </summary>
+    private void RotatePlayer()
+    {
+        float targetAngle = 0f;
+
+        // Je nach Bewegunsrichtung fen Player Rotieren
+        if (moveDirection.y > 0)
+        {
+            targetAngle = 90f; // nach oben
+        }
+        else if (moveDirection.y < 0)
+        {
+            targetAngle = -90f; // nach unten
+        }
+        else if (moveDirection.x < 0)
+        {
+            targetAngle = 180f; // nach links
+        }
+        
+        //Kleine Spielerei mit Lerping um das Smoother zu machen
+        float angle = Mathf.LerpAngle(transform.eulerAngles.z, targetAngle, Time.deltaTime * rotationSpeed);
+
+        // Setze die neue Rotation
+        transform.eulerAngles = new Vector3(0, 0, angle);
+    } // private void RotatePlayer()
+
 }
 
