@@ -14,11 +14,11 @@ public class Eyes : MonoBehaviour
 
     private List<Detector> detectors;
 
-    private Legs legs;
+    private Brain brain;
 
     private void Awake()
     {
-        legs = GetComponentInParent<Legs>();
+        brain = GetComponentInParent<Brain>();
     }
 
     private void Start()
@@ -37,7 +37,7 @@ public class Eyes : MonoBehaviour
     /// </summary>
     public virtual void OnDetect(GameObject ctx)
     {
-        legs.OverrideDestination(ctx.transform.position);
+        brain.IsChasing = true;
     }
 
     /// <summary>
