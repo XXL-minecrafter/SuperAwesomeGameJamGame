@@ -10,21 +10,30 @@ public class Legs : MonoBehaviour
     [SerializeField] private float stunDuration = 5f;
     [SerializeField] private LayerMask blockingLayer;
 
-    private Collider2D enemyCollider;
-    private float enemyRadius;
-    private Vector2 destination;
+    private Brain brain;
 
-    private Coroutine movementOperation;
+    private Vector2 destination;
+    private bool freezeMovement;
 
     private void Awake()
     {
-        enemyCollider = GetComponent<Collider2D>();
-        enemyRadius = enemyCollider.bounds.extents.x;
+        brain = GetComponent<Brain>();
     }
 
     private void Start()
     {
-        movementOperation = StartCoroutine(MoveTo());
+        destination = brain.Next();
+
+        // if the enemy partrols, use CalculateNewWaypoint() and pass it in Brain.FindPath()
+        // else get a random waypoint from the waypoint class and pass it in Brain.FindPath()
+    }
+
+    private void Update()
+    {
+        Debug.Log(brain.Next());
+
+        if (freezeMovement) return;
+        Move();
     }
 
     private void OnDrawGizmos()
@@ -33,26 +42,20 @@ public class Legs : MonoBehaviour
         Gizmos.DrawSphere(destination, radius: .1f);
     }
 
-    private IEnumerator MoveTo()
+    private void Move()
     {
-        const float maxRotationDelta = 1f;
-
-        while (true)
+        if (Vector2.Distance(transform.position, destination) >= .01f)
         {
-            destination = CalculateNewWaypoint();
+            transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime * movementSpeed;
 
-            while (Vector2.Distance(transform.position, destination) >= enemyRadius)
-            {
-                transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime * movementSpeed;
-
-                var currentRotation = transform.right;
-                var targetRotation = (Vector3)destination - transform.position;
-                transform.right = Vector3.RotateTowards(currentRotation, targetRotation, rotationSpeed * Time.deltaTime, maxRotationDelta);
-
-                yield return null;
-            }
+            var currentRotation = transform.right;
+            var targetRotation = (Vector3)destination - transform.position;
+            transform.right = Vector3.RotateTowards(currentRotation, targetRotation, rotationSpeed * Time.deltaTime, 1f);
         }
+        else destination = brain.Next();
     }
+
+    public void ToggleFreeze() => freezeMovement = !freezeMovement;
 
     public Vector2 CalculateNewWaypoint()
     {
@@ -74,11 +77,11 @@ public class Legs : MonoBehaviour
 
     private IEnumerator StunTimerCO()
     {
-        StopCoroutine(movementOperation);
+        ToggleFreeze();
 
         yield return new WaitForSeconds(stunDuration);
 
-        movementOperation = StartCoroutine(MoveTo());
+        ToggleFreeze();
     }
 }
 

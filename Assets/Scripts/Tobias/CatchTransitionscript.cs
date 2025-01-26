@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CatchTransitionscript : MonoBehaviour
@@ -12,6 +14,8 @@ public class CatchTransitionscript : MonoBehaviour
     [SerializeField] float secondsInBlackScreen;
 
 
+    public static Action OnFullBlackScreen;
+
     [SerializeField, Range(0.1f, 1)] float animationspeed;
     private void Awake()
     {
@@ -19,7 +23,12 @@ public class CatchTransitionscript : MonoBehaviour
     }
     private void OnEnable()
     {
-        PlayerMovement.PlayerCaught += Transition;
+        PlayerCaught.OnPlayerCaught += Transition;
+    }
+    private void OnDisable()
+    {
+        PlayerCaught.OnPlayerCaught -= Transition;
+
     }
     public void Transition()
     {
@@ -32,6 +41,7 @@ public class CatchTransitionscript : MonoBehaviour
             canvasGroup.alpha += Time.deltaTime * animationspeed;
             yield return null;
         }
+        OnFullBlackScreen?.Invoke();
         yield return new WaitForSeconds(secondsInBlackScreen);
 
         while (canvasGroup.alpha > 0)
@@ -41,5 +51,4 @@ public class CatchTransitionscript : MonoBehaviour
 
         }
     }
-
 }
