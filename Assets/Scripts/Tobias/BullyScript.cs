@@ -1,13 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BullyScript : MonoBehaviour,IInteractable
+public class BullyScript : MonoBehaviour, IInteractable
 {
     private int neededCoins = 2;
 
     [field:SerializeField] public GameObject InteractionBox { get; set; }
 
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite holdSprite;
+    private Sprite originalSprite;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        originalSprite = spriteRenderer.sprite;
+    }
 
     public void Interact()
     {
@@ -21,10 +28,14 @@ public class BullyScript : MonoBehaviour,IInteractable
     public void ShowInteractionBox()
     {
         InteractionBox.SetActive(true);
+
+        spriteRenderer.sprite = holdSprite;
     }
 
     public void DisableInteractionBox()
     {
         InteractionBox.SetActive( false);
+
+        spriteRenderer.sprite = originalSprite;
     }
 }

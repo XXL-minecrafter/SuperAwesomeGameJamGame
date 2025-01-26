@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3159138879566835307}
   - component: {fileID: 5967751754567101597}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 4164273465711688415}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.54275703, y: 0.54275703, z: 0.54275703}
+  m_LocalPosition: {x: 0, y: 0.3039999, z: 0}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6398065093515229775}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: -1581570463
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.5471698, g: 0.04387683, b: 0.5471698, a: 1}
+  m_Sprite: {fileID: -720347061, guid: bf15a7c969c4abf4b9a6223020aa0e91, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6398065093515229775}
   - component: {fileID: 4232950634582973884}
-  - component: {fileID: 5018745177180503964}
+  - component: {fileID: 8406593858060855259}
   m_Layer: 0
   m_Name: Bully
   m_TagString: Interactable
@@ -164,7 +164,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4939079, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5018745177180503964
+--- !u!114 &8406593858060855259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InteractionBox>k__BackingField: {fileID: 824883021117576068}
+  holdSprite: {fileID: -1520843465, guid: 97232fd04dccd5849941f380f43d869b, type: 3}
 --- !u!1001 &7795457627995236135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,15 +246,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_fontColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_fontColor.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_fontColor.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_fontSizeBase
@@ -265,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 2855484295792546572, guid: d42b8ad9abe86e442bc2862e5c5b3891, type: 2}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278190080
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_VerticalAlignment

@@ -48,7 +48,7 @@ public class Timer : MonoBehaviour
     {
         while (timeLeft > 0f && isRunning)
         {
-            Debug.Log("Verbleibende Zeit: " + timeLeft);
+            //Debug.Log("Verbleibende Zeit: " + timeLeft);
             yield return new WaitForSeconds(1f);
 
             SubtractTime(1);
