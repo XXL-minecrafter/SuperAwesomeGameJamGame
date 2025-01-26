@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class GumPlace : MonoBehaviour, IInteractable
 {
-    public bool GumPlaced = false;
-
     [field: SerializeField] public GameObject InteractionBox { get; set; }
 
     public void ShowInteractionBox()
@@ -17,6 +15,7 @@ public class GumPlace : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (PlayerStats.Instance.IsChewing)
         PlayerStats.Instance.PlacedGum();
     }
 }
