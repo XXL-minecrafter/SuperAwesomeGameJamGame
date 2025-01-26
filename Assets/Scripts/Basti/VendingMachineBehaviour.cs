@@ -7,12 +7,10 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 {
     private int gumAmount = 2;
 
-    private PlayerInput playerInput;
-    private InputAction interact;
-
     private PlayerStats playerStats;
     public SpawnPoint SpawnPoint;
     private SpriteRenderer spriteRenderer;
+    private AudioTransition audioPlayer;
 
     [field: SerializeField] public GameObject InteractionBox { get ; set ; }
     [SerializeField] Sprite leverPulled;
@@ -21,14 +19,12 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     private Shaking shake;
     public static Action OnInteract;
 
-    private void OnEnable()
+    private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        playerInput = new PlayerInput();
-        interact = playerInput.Player.interaction;
-        shake =GetComponent<Shaking>();
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
-        
+        audioPlayer = GameObject.FindWithTag("AudioPlayer").GetComponent<AudioTransition>();
+        shake = GetComponent<Shaking>();
     }
     private void Start()
     {
@@ -44,6 +40,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
             OnInteract?.Invoke();
             gumAmount -= 1;
             playerStats.SetChewing(true);
+            audioPlayer.ToggleIntensityLevel();
             PlayerStats.Instance.DecreaseCoins(1);
             StartCoroutine(CheckGumAmount());
         }
