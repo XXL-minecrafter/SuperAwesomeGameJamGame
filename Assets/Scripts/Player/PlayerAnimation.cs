@@ -29,37 +29,42 @@ public class PlayerAnimations : MonoBehaviour
 
     private Animator animator;
 
+    private void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();  
+    }
+
     public void ChangeAnimation(PlayerStates state)
     {
         CurrentAnimationState = state;
         switch (state)
         {
             case PlayerStates.Idle:
-                animator.Play("PlayerIdle");
+                animator.Play("Stand");
                 break;
             case PlayerStates.Walk:
-                animator.Play("PlayerWalk");
+                animator.Play("Walk");
                 break;
             case PlayerStates.Run:
-                animator.Play("PlayerRun");
+                animator.Play("Walk");
                 break;
             case PlayerStates.Interact:
-                animator.Play("PlayerInteract");
+                animator.Play("Stand");
                 break;
             case PlayerStates.ChewWalk:
-                animator.Play("PlayerChewWalk");
+                animator.Play("GumWalk");
                 break;
             case PlayerStates.ChewRun:
-                animator.Play("PlayerChewRun");
+                animator.Play("GumWalk");
                 break;
             case PlayerStates.ChewInteract:
-                animator.Play("PlayerChewInteract");
+                animator.Play("GumStand");
                 break;
             case PlayerStates.Chewidle:
-                animator.Play("PlayerChewIdle");
+                animator.Play("GumStand");
                 break;
             default:
-                animator.Play("PlayerIdle");
+                animator.Play("Stand");
                 break;
         }
     }
