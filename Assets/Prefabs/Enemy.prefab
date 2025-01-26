@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  useTargetObject: 1
+  useTargetObject: 0
 --- !u!114 &6591528995938250203
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPoint: {fileID: 0}
+  <InteractionBox>k__BackingField: {fileID: 2051696682134242025}
 --- !u!114 &3735111416560151009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +232,18 @@ PrefabInstance:
       value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_fontSizeBase
       value: 0.2
       objectReference: {fileID: 0}
@@ -238,6 +251,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2855484295792546572, guid: d42b8ad9abe86e442bc2862e5c5b3891, type: 2}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -255,6 +272,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+--- !u!1 &2051696682134242025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7448274103564580003, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+  m_PrefabInstance: {fileID: 8873360749565621834}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5922359243946460204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}

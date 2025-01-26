@@ -12,7 +12,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     private PlayerStats playerStats;
     public SpawnPoint SpawnPoint;
 
-    public GameObject InteractionBox { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    [field: SerializeField] public GameObject InteractionBox { get ; set ; }
 
     public static Action OnInteract;
 
@@ -30,9 +30,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
         //Play Animation "Lever pulled"
 
         OnInteract?.Invoke();
-        gumAmount -= 1;
-
-        playerStats.SetChewing(true);
+        VendingMachinePulled();
 
         CheckGumAmount();
     }
@@ -57,11 +55,11 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 
     public void ShowInteractionBox()
     {
-        throw new System.NotImplementedException();
+        InteractionBox.SetActive(true);
     }
 
     public void DisableInteractionBox()
     {
-        throw new System.NotImplementedException();
+        InteractionBox.SetActive(false);
     }
 }
