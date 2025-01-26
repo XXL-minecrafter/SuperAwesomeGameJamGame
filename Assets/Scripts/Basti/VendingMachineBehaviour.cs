@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,14 +14,14 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     public SpawnPoint SpawnPoint;
 
     [field: SerializeField] public GameObject InteractionBox { get ; set ; }
-
+    private Shaking shake;
     public static Action OnInteract;
 
     private void OnEnable()
     {
         playerInput = new PlayerInput();
         interact = playerInput.Player.interaction;
-
+        shake =GetComponent<Shaking>();
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
     }
 
@@ -28,28 +29,23 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     public void Interact()
     {
         //Play Animation "Lever pulled"
+        if (!PlayerStats.Instance.IsChewing)
+        {
+            OnInteract?.Invoke();
+            gumAmount -= 1;
+            playerStats.SetChewing(true);
 
-        OnInteract?.Invoke();
-        VendingMachinePulled();
-
-        CheckGumAmount();
+            StartCoroutine(CheckGumAmount());
+        }
     }
 
-    private void VendingMachinePulled()
+    public IEnumerator CheckGumAmount()
     {
-        gumAmount -= 1;
-
-        playerStats.SetChewing(true);
-
-    }
-
-    private void CheckGumAmount()
-    {
+        yield return new WaitForSeconds(shake.setShakeDuration);
         if (gumAmount == 0)
         {
             SpawnPoint.RemoveSpawnPointObject();
             Destroy(gameObject);
-            Destroy(this);
         }
     }
 
