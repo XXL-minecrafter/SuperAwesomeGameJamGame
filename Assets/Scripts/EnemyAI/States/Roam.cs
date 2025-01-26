@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Roam : MonoBehaviour
+public class Roam : States
 {
-    // Start is called before the first frame update
-    void Start()
+    public Roam(Brain brain, Legs legs, Eyes eyes) : base(brain, legs, eyes)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override Vector2 SelectTarget() => legs.CalculateNewWaypoint();
 }

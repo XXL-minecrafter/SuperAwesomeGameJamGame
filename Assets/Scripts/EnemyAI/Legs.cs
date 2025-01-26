@@ -72,11 +72,11 @@ public class Legs : MonoBehaviour
 
     private IEnumerator RoamingCO(System.Func<Vector2> callback)
     {
-        brain.ToggleRoaming();
+        brain.IsRoaming = true;
 
         yield return new WaitForSeconds(roamingDuration);
 
-        brain.ToggleRoaming();
+        brain.IsRoaming = false;
     }
 
     public void ToggleFreeze() => freezeMovement = !freezeMovement;

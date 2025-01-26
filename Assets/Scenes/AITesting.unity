@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e398fc5732c212c45aece6fc71a8c97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementRange: 4
+  movementRange: 1
   movementSpeed: 1
   rotationSpeed: 10
   stunDuration: 5
@@ -435,8 +435,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   useTargetObject: 0
-  isChasing: 0
-  isRoaming: 0
+  IsChasing: 0
+  IsRoaming: 0
 --- !u!1 &376837534
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chase : MonoBehaviour
+public class Chase : States
 {
-    // Start is called before the first frame update
-    void Start()
+    private Transform player;
+
+    public Chase(Brain brain, Legs legs, Eyes eyes, Transform player) : base(brain, legs, eyes)
     {
-        
+        this.player = player;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override Vector2 SelectTarget() => player.position;
 }

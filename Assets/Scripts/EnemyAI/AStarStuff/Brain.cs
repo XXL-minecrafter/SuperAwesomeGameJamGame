@@ -43,7 +43,12 @@ public class Brain : MonoBehaviour
 
     private void ChangeState()
     {
-        if (!IsRoaming && !IsChasing && Vector2.Distance(transform.position, targetPosition) < 1f) legs.StartRoaming();
+        Debug.Log($"{!IsRoaming} && {!IsChasing} && {Vector2.Distance(transform.position, targetPosition)} < 1f");
+
+        if (!IsRoaming && !IsChasing && Vector2.Distance(transform.position, targetPosition) <= 1f)
+        {
+            legs.StartRoaming();
+        }
     }
 
     private Vector3 SelectTargetPosition()
