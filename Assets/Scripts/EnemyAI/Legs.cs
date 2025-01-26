@@ -55,14 +55,14 @@ public class Legs : MonoBehaviour
 
     private void Move()
     {
-        if (Vector2.Distance(transform.position, destination) >= .01f)
+        if (Vector2.Distance(transform.position, destination) >= .005f)
         {
             transform.position += ((Vector3)destination - transform.position).normalized * Time.deltaTime * movementSpeed;
 
             var currentRotation = transform.right;
             var targetRotation = (Vector3)destination - transform.position;
-            transform.right = Vector3.RotateTowards(currentRotation, targetRotation, rotationSpeed * Time.deltaTime, 1f);
-
+            //transform.right = Vector3.RotateTowards(currentRotation, targetRotation, rotationSpeed * Time.deltaTime, 1f);
+            Debug.Log("test");
             return;
         }        
         else destination = brain.Next();
