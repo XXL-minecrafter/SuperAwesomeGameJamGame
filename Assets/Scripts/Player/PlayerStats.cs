@@ -43,7 +43,7 @@ public class PlayerStats : MonoBehaviour
     /// <param name="amount">Anzahl der hinzuzufügenden Coins</param>
     public void IncreaseCoins(int amount)
     {
-        if (CurrentCoins <= MaxCoins) return; // Raus wenn wir bereits die maximale Anzahl an Münzen haben
+        if (CurrentCoins >= MaxCoins) return; // Raus wenn wir bereits die maximale Anzahl an Münzen haben
 
         CurrentCoins += amount;
         OnSetCoins?.Invoke(CurrentCoins); // Event auslösen, wenn Coins erhöht werden
