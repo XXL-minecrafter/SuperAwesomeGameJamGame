@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -25,8 +26,6 @@ public class RoomLightSwitch : MonoBehaviour
     private float flickerTimer;
     private float flickerDelay;
     private bool isFlicker;
-    private Texture2D lightFlicker;
-    private float lightFlickerChance = 0.01f;
     private float burstFlickerInterval = 0.6f;
     private int flickerCount;
     private int currentMaxFlickers;
@@ -42,13 +41,11 @@ public class RoomLightSwitch : MonoBehaviour
 
     private void Awake()
     {
-        #region Initial Values
         roomLight = GetComponent<Light2D>();
         initialIntensity = roomLight.intensity;
         falloffDistance = roomLight.falloffIntensity;
         roomLight.enabled = true;
         roomLight.intensity = 0f;
-        #endregion
 
         CheckMaxValues();
     }
@@ -65,7 +62,7 @@ public class RoomLightSwitch : MonoBehaviour
             if (turnOffTimer <= 0) isDelay = false;
         }
 
-        if (isOn)
+        if (isOn && CanFlicker)
         {
             flickerTimer += Time.deltaTime;
             if (flickerTimer > flickerDelay)
@@ -73,7 +70,6 @@ public class RoomLightSwitch : MonoBehaviour
                 FlickerLight();
             }
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -154,12 +150,6 @@ public class RoomLightSwitch : MonoBehaviour
 
         flickerTimer = 0;
     }
-
-    private void FlickerBurstLight()
-    {
-        
-    }
-
 
     /// <summary>
     /// Save feature if someone fucked up creating the lights (probably me, Basti...)
