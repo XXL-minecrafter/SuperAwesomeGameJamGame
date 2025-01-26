@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,15 +13,15 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     private PlayerStats playerStats;
     public SpawnPoint SpawnPoint;
 
-    public GameObject InteractionBox { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
+    [field: SerializeField] public GameObject InteractionBox { get ; set ; }
+    private Shaking shake;
     public static Action OnInteract;
 
     private void OnEnable()
     {
         playerInput = new PlayerInput();
         interact = playerInput.Player.interaction;
-
+        shake =GetComponent<Shaking>();
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
     }
 
@@ -28,40 +29,33 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     public void Interact()
     {
         //Play Animation "Lever pulled"
+        if (!PlayerStats.Instance.IsChewing)
+        {
+            OnInteract?.Invoke();
+            gumAmount -= 1;
+            playerStats.SetChewing(true);
 
-        OnInteract?.Invoke();
-        gumAmount -= 1;
-
-        playerStats.SetChewing(true);
-
-        CheckGumAmount();
+            StartCoroutine(CheckGumAmount());
+        }
     }
 
-    private void VendingMachinePulled()
+    public IEnumerator CheckGumAmount()
     {
-        gumAmount -= 1;
-
-        playerStats.SetChewing(true);
-
-    }
-
-    private void CheckGumAmount()
-    {
+        yield return new WaitForSeconds(shake.setShakeDuration);
         if (gumAmount == 0)
         {
             SpawnPoint.RemoveSpawnPointObject();
             Destroy(gameObject);
-            Destroy(this);
         }
     }
 
     public void ShowInteractionBox()
     {
-        throw new System.NotImplementedException();
+        InteractionBox.SetActive(true);
     }
 
     public void DisableInteractionBox()
     {
-        throw new System.NotImplementedException();
+        InteractionBox.SetActive(false);
     }
 }
