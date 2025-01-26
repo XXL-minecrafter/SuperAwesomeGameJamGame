@@ -44,7 +44,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
             OnInteract?.Invoke();
             gumAmount -= 1;
             playerStats.SetChewing(true);
-            PlayerStats.Instance.DecreaseCoins(-1);
+            PlayerStats.Instance.DecreaseCoins(1);
             StartCoroutine(CheckGumAmount());
         }
     }

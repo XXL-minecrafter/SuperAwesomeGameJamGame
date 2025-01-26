@@ -26,19 +26,19 @@ public class HUDManager : MonoBehaviour
 
     private void ResetCurrentCoins()
     {
-        currentCoins = 0;
-        currentCoinsText.text = $"{currentCoins}";
+        //currentCoins = 0;
+        //currentCoinsText.text = $"{currentCoins}";
     }
 
     private void SetCurrentCoins(int currentCoins)
     {
-        this.currentCoins = currentCoins;
-        currentCoinsText.text = $"{this.currentCoins}";
+        //this.currentCoins = currentCoins;
+        //currentCoinsText.text = $"{this.currentCoins}";
     }
 
     private void SetCurrentGumsPlaced(int currentGumsPlaced)
     {
-        this.currentGumsPlaced = currentGumsPlaced;
-        currentGumsPlacedText.text = $"{this.currentGumsPlaced}";
+        //this.currentGumsPlaced = currentGumsPlaced;
+        //currentGumsPlacedText.text = $"{this.currentGumsPlaced}";
     }
 }

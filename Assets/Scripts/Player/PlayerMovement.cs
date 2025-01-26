@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         float angle = Mathf.LerpAngle(transform.eulerAngles.z, targetAngle, Time.deltaTime * rotationSpeed);
 
         // Setze die neue Rotation
-        spriteRenderer.transform.eulerAngles = new Vector3(0, 0, angle);
+        spriteRenderer.transform.eulerAngles = new Vector3(0, 0, targetAngle);
     }
     /// <summary>
     /// Disables the Inputs of the Player

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -92,6 +93,7 @@ public class PlayerStats : MonoBehaviour
         PlacedBubbleGum++;
         OnGumPlaced?.Invoke(PlacedBubbleGum);
         SetChewing(false);
+        
         if (PlacedBubbleGum == PlacedBubbleGumNeeded)
         {
             OnAllGumsPlaced?.Invoke();
