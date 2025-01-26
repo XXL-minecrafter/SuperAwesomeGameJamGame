@@ -48,6 +48,8 @@ public class NodeGrid : MonoBehaviour
         float percentX = (worldPosition.x + gridSizeX / 2) / gridSizeX;
         float percentY = (worldPosition.y + gridSizeY / 2) / gridSizeY;
 
+        //float percentX = worldPosition.x + gridSizeX 
+
         percentX = Mathf.Clamp01(percentX); //Handle outside coordinates (Out of Bounds exception)
         percentY = Mathf.Clamp01(percentY);
 

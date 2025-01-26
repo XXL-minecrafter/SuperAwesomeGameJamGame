@@ -14,7 +14,7 @@ public class Legs : MonoBehaviour
     private Brain brain;
     private Collider2D enemyCollider;
 
-    private Vector2 destination;
+    [SerializeField] private Vector2 destination;
     private bool freezeMovement;
 
     private void Awake()

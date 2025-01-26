@@ -947,7 +947,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 210}
+  m_SizeDelta: {x: 1300, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1308456649
 MonoBehaviour:
@@ -969,15 +969,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Art: Batu, Olivia, Marc, Kevin
+  m_text: 'Art: Batu, Olivia, Marc, Kevin, Jean
 
-    Programmer: Jan, Julian, Justin, Tobi,
-    Basti, Hilde
+    Programmer: Jan, Julian, Justin,
+    Markus, Tobi, Basti, Hilde
 
     Music: Mark K., Fernando, Yannick
 
-    Audio: Alexander Keinprecht
-    (Arekuza)'
+    Audio:
+    Alexander Keinprecht (Arekuza)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1564,7 +1564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1685888537
 RectTransform:
   m_ObjectHideFlags: 0

@@ -6,13 +6,13 @@ public class Brain : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private bool useTargetObject;
-    private Vector3 targetPosition = Vector3.zero;
+    [SerializeField] private Vector3 targetPosition = Vector3.zero;
 
     private Legs legs;
 
     private NodeGrid nodeGrid;
     public NodeGrid NodeGrid => nodeGrid;
-    private WaypointManager waypointManager;
+    [SerializeField] private WaypointManager waypointManager;
 
     private List<Node> openNodes;
     private HashSet<Node> closedNodes;
@@ -25,8 +25,8 @@ public class Brain : MonoBehaviour
         nodeGrid = FindObjectOfType<NodeGrid>();
         if (!nodeGrid) Debug.LogWarning("There was no World Grid found in the scene!");
 
-        waypointManager = FindObjectOfType<WaypointManager>();
-        if (!waypointManager) Debug.LogWarning("There was no Waypoint Manager found in the scene!");
+        //waypointManager = FindObjectOfType<WaypointManager>();
+        //if (!waypointManager) Debug.LogWarning("There was no Waypoint Manager found in the scene!");
 
         legs = GetComponent<Legs>();
     }
@@ -35,8 +35,8 @@ public class Brain : MonoBehaviour
     {
         if (!nodeGrid) return;
 
-        targetPosition = SelectTargetPosition();
-        ChangeState();
+        targetPosition =((Vector2.Distance(transform.position, targetPosition) < 1f)) ? waypointManager.FindRandomWaypointPosition() : targetPosition;
+        //ChangeState();
 
         FindPath(transform.position, targetPosition);
     }
@@ -70,8 +70,12 @@ public class Brain : MonoBehaviour
 
     private void FindPath(Vector2 startPos, Vector2 endPos)
     {
+        Debug.Log(startPos);
+
         Node startNode = nodeGrid.NodeFromWorldPoint(startPos);
         Node endNode = nodeGrid.NodeFromWorldPoint(endPos);
+
+        Debug.Log(startNode.worldPosition);
 
         openNodes = new();
         closedNodes = new();

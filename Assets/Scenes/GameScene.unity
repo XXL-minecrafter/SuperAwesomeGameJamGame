@@ -8955,6 +8955,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 243077368}
   useTargetObject: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  waypointManager: {fileID: 0}
   IsChasing: 0
   IsRoaming: 0
 --- !u!114 &831246091
@@ -8996,6 +8998,7 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 64
+  destination: {x: 0, y: 0}
 --- !u!58 &831246093
 CircleCollider2D:
   m_ObjectHideFlags: 0
