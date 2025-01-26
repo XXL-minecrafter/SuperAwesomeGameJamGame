@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb2D;
     private PlayerStats playerStats;
     private Vector2 moveDirection;
+    private SpriteRenderer spriteRenderer;
 
     [SerializeField] private float walkspeed;
     [SerializeField] private float sprintSpeed;
@@ -26,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     public static Action<PlayerAnimations.PlayerStates> OnPlayerSprint;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerWalk;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerStanding;
-    public static Action PlayerCaught;
 
 
     private void Awake()
@@ -34,18 +34,21 @@ public class PlayerMovement : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         rb2D = GetComponent<Rigidbody2D>();
         playerInput = new PlayerInput();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         move = playerInput.Player.move;
         sprint = playerInput.Player.sprint;
     }
     private void OnEnable()
     {
-        sprint.Enable();
-        move.Enable();
+        EnableInputs();
+        CatchTransitionscript.OnFullBlackScreen += EnableInputs;
+        PlayerCaught.OnPlayerCaught += DisableInputs;
     }
     private void OnDisable()
     {
-        move.Disable();
-        sprint.Disable();
+        DisableInputs();
+        CatchTransitionscript.OnFullBlackScreen -=EnableInputs;
+        PlayerCaught.OnPlayerCaught -= DisableInputs;
     }
 
     // Update is called once per frame
@@ -102,10 +105,6 @@ public class PlayerMovement : MonoBehaviour
         {
             collision.transform.GetComponent<ICollectable>().Collect();
         }
-        if (collision.transform.tag == "Enemy" && playerStats.IsChewing)
-        {
-            PlayerCaught?.Invoke();
-        }
     }
 
     /// <summary>
@@ -121,7 +120,18 @@ public class PlayerMovement : MonoBehaviour
         float angle = Mathf.LerpAngle(transform.eulerAngles.z, targetAngle, Time.deltaTime * rotationSpeed);
 
         // Setze die neue Rotation
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        spriteRenderer.transform.eulerAngles = new Vector3(0, 0, angle);
     }
+    public void DisableInputs()
+    {
+        move.Disable();
+        sprint.Disable();
+    }
+    public void EnableInputs()
+    {
+        sprint.Enable();
+        move.Enable();
+    }
+
 }
 
