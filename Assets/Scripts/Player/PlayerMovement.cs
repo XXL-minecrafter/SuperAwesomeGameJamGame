@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     public static Action<PlayerAnimations.PlayerStates> OnPlayerSprint;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerWalk;
     public static Action<PlayerAnimations.PlayerStates> OnPlayerStanding;
-    public static Action PlayerCaught;
 
 
     private void Awake()
@@ -41,13 +40,15 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnEnable()
     {
-        sprint.Enable();
-        move.Enable();
+        EnableInputs();
+        CatchTransitionscript.OnFullBlackScreen += EnableInputs;
+        PlayerCaught.OnPlayerCaught += DisableInputs;
     }
     private void OnDisable()
     {
-        move.Disable();
-        sprint.Disable();
+        DisableInputs();
+        CatchTransitionscript.OnFullBlackScreen -=EnableInputs;
+        PlayerCaught.OnPlayerCaught -= DisableInputs;
     }
 
     // Update is called once per frame
@@ -104,10 +105,6 @@ public class PlayerMovement : MonoBehaviour
         {
             collision.transform.GetComponent<ICollectable>().Collect();
         }
-        if (collision.transform.tag == "Enemy" && playerStats.IsChewing)
-        {
-            PlayerCaught?.Invoke();
-        }
     }
 
     /// <summary>
@@ -125,5 +122,16 @@ public class PlayerMovement : MonoBehaviour
         // Setze die neue Rotation
         spriteRenderer.transform.eulerAngles = new Vector3(0, 0, angle);
     }
+    public void DisableInputs()
+    {
+        move.Disable();
+        sprint.Disable();
+    }
+    public void EnableInputs()
+    {
+        sprint.Enable();
+        move.Enable();
+    }
+
 }
 
