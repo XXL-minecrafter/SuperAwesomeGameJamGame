@@ -106,28 +106,15 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void RotatePlayer()
     {
-        float targetAngle = 0f;
 
-        // Je nach Bewegunsrichtung fen Player Rotieren
-        if (moveDirection.y > 0)
-        {
-            targetAngle = 90f; // nach oben
-        }
-        else if (moveDirection.y < 0)
-        {
-            targetAngle = -90f; // nach unten
-        }
-        else if (moveDirection.x < 0)
-        {
-            targetAngle = 180f; // nach links
-        }
-        
-        //Kleine Spielerei mit Lerping um das Smoother zu machen
+        // Berechnung des Zielwinkels basierend auf der Bewegungsrichtung
+        float targetAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+
+        // Sanfte Interpolation der aktuellen Rotation zum Zielwinkel
         float angle = Mathf.LerpAngle(transform.eulerAngles.z, targetAngle, Time.deltaTime * rotationSpeed);
 
         // Setze die neue Rotation
         transform.eulerAngles = new Vector3(0, 0, angle);
-    } // private void RotatePlayer()
-
+    }
 }
 
