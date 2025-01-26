@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb2D;
     private PlayerStats playerStats;
     private Vector2 moveDirection;
+    private SpriteRenderer spriteRenderer;
 
     [SerializeField] private float walkspeed;
     [SerializeField] private float sprintSpeed;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         rb2D = GetComponent<Rigidbody2D>();
         playerInput = new PlayerInput();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         move = playerInput.Player.move;
         sprint = playerInput.Player.sprint;
     }
@@ -121,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         float angle = Mathf.LerpAngle(transform.eulerAngles.z, targetAngle, Time.deltaTime * rotationSpeed);
 
         // Setze die neue Rotation
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        spriteRenderer.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 }
 
