@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,19 +8,34 @@ public class Brain : MonoBehaviour
     [SerializeField] private bool useTargetObject;
     private Vector3 targetPosition = Vector3.zero;
 
+    private Legs legs;
+
     private NodeGrid nodeGrid;
-    public NodeGrid NodeGrid => nodeGrid;
+    private WaypointManager waypointManager;
 
     private List<Node> openNodes;
     private HashSet<Node> closedNodes;
 
+    public bool IsChasing { get; private set; }
+
     private void Awake()
     {
         nodeGrid = FindObjectOfType<NodeGrid>();
+        if (!nodeGrid) Debug.LogWarning("There was no World Grid found in the scene!");
+
+        waypointManager = FindObjectOfType<WaypointManager>();
+        if (!waypointManager) Debug.LogWarning("There was no Waypoint Manager found in the scene!");
+
+        legs = GetComponent<Legs>();
     }
 
     private void Update()
     {
+        if (!nodeGrid) return;
+
+        // Selecting new waypoint, if current one was reached and enemy is not actively chasing
+        if (!IsChasing && Vector2.Distance(transform.position, targetPosition) < 1f) legs.StartRoaming(waypointManager.FindRandomWaypointPosition);
+
         FindPath(transform.position, useTargetObject ? target.position : targetPosition);
     }
 

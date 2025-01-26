@@ -28,6 +28,7 @@ public class Eyes : MonoBehaviour
 
     private void Update()
     {
+        if (!PlayerStats.Instance.IsChewing) return;
         TargetInSight = Detect(detectors, out var hit, OnDetect);
     }
 
@@ -54,7 +55,7 @@ public class Eyes : MonoBehaviour
         int count = Mathf.FloorToInt(detectorCount * .5f);
 
         var eyeSocket = new GameObject("Eye Socket").transform;
-        eyeSocket.SetParent(transform, false);
+        eyeSocket.SetParent(anchor, false);
         eyeSocket.rotation = Quaternion.Euler(rotation);
 
         for (int i = -count; i <= count; i++)

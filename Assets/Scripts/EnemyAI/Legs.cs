@@ -8,12 +8,15 @@ public class Legs : MonoBehaviour
     [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float stunDuration = 5f;
+    [SerializeField] private float roamingDuration = 20f;
     [SerializeField] private LayerMask blockingLayer;
 
     private Brain brain;
 
     private Vector2 destination;
     private bool freezeMovement;
+
+    private bool isRoaming;
 
     private void Awake()
     {
@@ -62,10 +65,25 @@ public class Legs : MonoBehaviour
             var targetRotation = (Vector3)destination - transform.position;
             transform.right = Vector3.RotateTowards(currentRotation, targetRotation, rotationSpeed * Time.deltaTime, 1f);
         }
-        else destination = brain.Next();
+        else destination = isRoaming ? CalculateNewWaypoint() : brain.Next();
+    }
+
+    public void StartRoaming(System.Func<Vector2> callback) => StartCoroutine(RoamingCO(callback));
+
+    private IEnumerator RoamingCO(System.Func<Vector2> callback)
+    {
+        isRoaming = true;
+
+        yield return new WaitForSeconds(roamingDuration);
+
+        isRoaming = false;
+
+        destination = callback.Invoke();
     }
 
     public void ToggleFreeze() => freezeMovement = !freezeMovement;
+
+    public bool ToggleRoaming() => freezeMovement = !freezeMovement;
 
     public Vector2 CalculateNewWaypoint()
     {
@@ -78,7 +96,7 @@ public class Legs : MonoBehaviour
         else return randomPosition;
     }
 
-    public void OverrideDestination(Vector2 destination) => this.destination = destination;
+    public void OverrideDestination(Vector2 destination) => brain.OverrideTarget(destination);
 
     public void Stun()
     {
