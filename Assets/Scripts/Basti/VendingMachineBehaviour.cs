@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,8 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
 
     public GameObject InteractionBox { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
+    public static Action OnInteract;
+
     private void OnEnable()
     {
         playerInput = new PlayerInput();
@@ -26,6 +29,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     {
         //Play Animation "Lever pulled"
 
+        OnInteract?.Invoke();
         gumAmount -= 1;
 
         playerStats.SetChewing(true);

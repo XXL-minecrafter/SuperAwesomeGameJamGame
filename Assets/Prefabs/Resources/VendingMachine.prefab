@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1454510411601886483}
   - component: {fileID: 3121285114249211197}
   - component: {fileID: 4784237197368942744}
+  - component: {fileID: 3735111416560151009}
   m_Layer: 0
   m_Name: VendingMachine
   m_TagString: Untagged
@@ -31,7 +32,8 @@ Transform:
   m_LocalPosition: {x: -2.3724823, y: 0.8049943, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5922359243946460204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1454510411601886483
@@ -74,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 22
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -143,3 +145,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87af56a0070cba408eb12041f1f926f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 0}
+--- !u!114 &3735111416560151009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930165490195699602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b154c39a718339418bf4f611cc908a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.1
+  shakeDuration: 0.5
+--- !u!1001 &8873360749565621834
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7715409237683951295}
+    m_Modifications:
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3781177527368245259, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_text
+      value: 'E to pay
+
+        <color="red"> 1 Coin '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontSize
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d42b8ad9abe86e442bc2862e5c5b3891, type: 2}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontStyle
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2855484295792546572, guid: d42b8ad9abe86e442bc2862e5c5b3891, type: 2}
+    - target: {fileID: 7434088486789868993, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7448274103564580003, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_Name
+      value: InteractionBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 7448274103564580003, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+--- !u!4 &5922359243946460204 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2960255614161171046, guid: 9fac7d6de8d39824c8b2d98c37511efb, type: 3}
+  m_PrefabInstance: {fileID: 8873360749565621834}
+  m_PrefabAsset: {fileID: 0}
