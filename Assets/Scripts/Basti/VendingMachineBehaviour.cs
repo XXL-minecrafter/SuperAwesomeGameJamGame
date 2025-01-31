@@ -23,7 +23,7 @@ public class VendingMachineBehaviour : MonoBehaviour, IInteractable
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
-        audioPlayer = GameObject.FindWithTag("AudioPlayer").GetComponent<AudioTransition>();
+        audioPlayer = GameObject.Find("AudioPlayer").GetComponent<AudioTransition>();
         shake = GetComponent<Shaking>();
     }
     private void Start()
